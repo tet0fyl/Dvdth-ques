@@ -10,7 +10,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.util.Duration;
-import models.FilmManager;
+import models.managers.FilmManager;
 import tools.Config;
 import views.ViewHandler;
 

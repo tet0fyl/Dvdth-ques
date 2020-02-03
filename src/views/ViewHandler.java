@@ -5,7 +5,7 @@ import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.layout.FlowPane;
 import javafx.stage.Stage;
-import models.FilmManager;
+import models.managers.FilmManager;
 import tools.Config;
 
 import java.sql.SQLException;
@@ -29,65 +29,82 @@ public class ViewHandler extends Application {
     @Override
     public void start(Stage primaryStage) {
         this.primaryStage = primaryStage;
+
         root = new FlowPane();
-        root.getStyleClass().add("bg");
+        root.getStyleClass().add("bg"); // Ajout d'un class CSS sur le root
+
+        /* ON PREPARE LA SCENE */
         scene = new Scene(root,500,600);
+        scene.getStylesheets().add(Config.urlStyleSheet); // Ajout du Css
+
+        /* ON PREPARE LE HEADER */
         viewHeader = new ViewHeader(root);
         controllerHeader = new ControllerHeader(this);
-        primaryStage.setMinHeight(600);
-        primaryStage.setMinWidth(300);
 
+        /* ON PREPARE L'OBJET FILMMANAGER QUI NOUS SERVIRA POUR TOUTE LES REQUETES */
         filmManager = new FilmManager();
 
-        /* ON EDITE LA SCENE */
-        scene.getStylesheets().add(Config.urlStyleSheet);
+        /* ON EDITE LE STAGE */
         primaryStage.setTitle("Dvdtheques");
+        primaryStage.setMinHeight(600); //On defini
+        primaryStage.setMinWidth(300);
+        primaryStage.setScene(scene);
+        //primaryStage.setResizable(false);
         //primaryStage.setFullScreenExitHint("");
         //primaryStage.setFullScreen(true);
         //primaryStage.setFullScreenExitKeyCombination(KeyCombination.NO_MATCH);
         //primaryStage.initStyle(StageStyle.UNDECORATED);
-        primaryStage.setScene(scene);
-        //primaryStage.setResizable(false);
         primaryStage.show();
 
-        /* ON AFFICHE PAR DEFAULT L'ECRAN DE CHARGEMENT */
+        /* ON AFFICHE SOIT LA PAGE DE CHARGEMENT SOIT LA PAGE HOME SUIVANT LA VARIABLE DANS CONFIG (tools.Config) */
         if(!Config.skipIntro){
             afficherPreloader();
         } else {
-            try {
-                afficherHome();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
+            afficherHome();
         }
 
     }
 
+    /**
+     * Methode pour initialiser la vue de chargement
+     */
     public void afficherPreloader(){
         viewLoadScreen = new ViewLoadScreen(root);
         viewLoadScreen.clearAndInitRoot();
         controllerLoadScreen = new ControllerLoadScreen(this, filmManager);
     }
 
-    public void afficherHome() throws SQLException {
+    /**
+     * Methode pour initialiser la vue Home : qui contient juste les images des films
+     * 1. j'initialise la viewHome
+     * 2. j'efface le root et je passe en parametre la vue du Header ( comme en PHP pour avoir le même header sur toute les vues)
+     * 3. j'initialise le controllerHome
+     */
+    public void afficherHome() {
         viewHome = new ViewHome(root);
         viewHome.clearAndInitRoot(getViewHeader());
         controllerHome = new ControllerHome(this, filmManager);
-
     }
 
+    /**
+     * Idem pour la vue ListFilm : qui contient les affiches avec le descriptif des films
+     */
     public void afficherListFilm() {
         viewList = new ViewList(root);
         viewList.clearAndInitRoot(getViewHeader());
         controllerList = new ControllerList(this,filmManager);
     }
 
+    /**
+     * Idem pour la vue AddFilm : qui contiendra le formulaire
+     */
     public void afficherAddFilm() {
         viewAddFilm = new ViewAddFilm(root);
         viewAddFilm.clearAndInitRoot(getViewHeader());
         controllerAddFilm = new ControllerAddFilm(this,filmManager);
     }
 
+    /*  GETTER */
     public ViewHome getViewHome(){
         return viewHome;
     }

@@ -1,10 +1,10 @@
-package models;
+package models.managers;
 
-import com.mysql.cj.jdbc.exceptions.CommunicationsException;
+import models.Film;
+import models.Nationalite;
+import models.Realisateur;
 
-import java.sql.DriverManager;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 
 
@@ -59,6 +59,32 @@ public class FilmManager extends BDDManager{
             }
             this.stop();
         return listOfFilm;
+    }
+
+    /**
+     * Insert Film BDD
+     * @throws SQLException
+     */
+    public void insertFilm() throws SQLException{
+        //TODO : Faire la ou les requetes d'insert
+        String query = "" ;
+        this.start();
+        st = db.createStatement();
+        rs = st.executeQuery(query);
+        this.stop();
+    }
+
+    /**
+     * Delete Film
+     * @param id id du film
+     * @throws SQLException
+     */
+    public void deleteFilm(int id) throws SQLException{
+        String query = "DELETE FROM Film WHERE " + Film.ID_COLNAME + " LIKE " + id;
+        this.start();
+        st = db.createStatement();
+        rs = st.executeQuery(query);
+        this.stop();
     }
 
 

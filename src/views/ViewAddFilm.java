@@ -7,6 +7,8 @@ public class ViewAddFilm {
 
     public ViewAddFilm(FlowPane root) {
         this.root = root;
+        //TODO : Construire un formulaire d'ajout de film
+
     }
 
     public void clearAndInitRoot(ViewHeader viewHeader) {

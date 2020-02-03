@@ -3,6 +3,7 @@ package models;
 import java.util.ArrayList;
 
 public class Film {
+    /* C'ES VARAIBLE STATIC CORESPONDENT AUX NOM DE COLONNE DANS LA BDD */
     public static String ID_COLNAME = "Id_Film";
     public static String NOM_COLNAME = "Nom_Film";
     public static String ANNEE_COLNAME = "Annee_Film";

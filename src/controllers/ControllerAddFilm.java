@@ -2,7 +2,7 @@ package controllers;
 
 import javafx.event.EventHandler;
 import javafx.scene.input.MouseEvent;
-import models.FilmManager;
+import models.managers.FilmManager;
 import views.ViewHandler;
 
 public class ControllerAddFilm implements EventHandler<MouseEvent> {

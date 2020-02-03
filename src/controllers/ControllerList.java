@@ -1,6 +1,6 @@
 package controllers;
 
-import models.FilmManager;
+import models.managers.FilmManager;
 import views.ViewHandler;
 
 import java.sql.SQLException;

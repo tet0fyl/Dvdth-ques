@@ -5,18 +5,18 @@ import javafx.event.EventHandler;
 import javafx.scene.input.MouseEvent;
 import views.ViewHandler;
 
-import java.sql.SQLException;
-
 public class ControllerHeader implements EventHandler<MouseEvent> {
     private ViewHandler viewHandler;
 
     public ControllerHeader(ViewHandler viewHandler){
         this.viewHandler = viewHandler;
-
         this.viewHandler.getViewHeader().setEvent(this);
     }
 
-
+    /**
+     * Evenement sur les bouttons du Header
+     * @param mouseEvent
+     */
     @Override
     public void handle(MouseEvent mouseEvent) {
         if(mouseEvent.getSource().equals(viewHandler.getViewHeader().getBtnExit())){
@@ -31,11 +31,7 @@ public class ControllerHeader implements EventHandler<MouseEvent> {
         }
 
         if(mouseEvent.getSource().equals(viewHandler.getViewHeader().getBtnHome())){
-            try {
-                viewHandler.afficherHome();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
+            viewHandler.afficherHome();
         }
     }
 }

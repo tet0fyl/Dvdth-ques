@@ -1,14 +1,8 @@
 package views;
 
-import javafx.beans.InvalidationListener;
-import javafx.beans.Observable;
 import javafx.beans.binding.Bindings;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableIntegerValue;
-import javafx.beans.value.ObservableValue;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.FlowPane;
@@ -19,82 +13,93 @@ import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import models.Film;
 import tools.Config;
-
-import javax.naming.Binding;
 import java.util.ArrayList;
 
 public class ViewHome {
     private FlowPane root;
-    private VBox vBoxContainer;
-    private VBox hBoxHeader;
-    private FlowPane hBoxCotainerFilms;
-    private FlowPane flowPaneNavBar;
-    private ScrollPane scrollPane;
-    private Button btnHome, btnListFilm, btnAddFilm,btnExit;
-    private ImageView imgNameLogo = new ImageView(Config.urlImgFullLogo);
-    private HBox hBoxLogo,hBoxFooter;
+    private VBox vBoxContainer; // Conteneur qui agence verticalement les element
+    private ScrollPane scrollPane; // Conteneur Scrollable
+    private FlowPane flowPaneCotainerFilms; // Conteneur FlowPane
+    private HBox hBoxTitle; // Conteneur du Titre
     private Text titleNouveaute;
-    private HBox hBoxTitle = new HBox();
 
 
     public ViewHome(FlowPane root){
         this.root = root;
+
+        /* INITIALISATION DES CONTENEURS */
         vBoxContainer = new VBox();
         scrollPane = new ScrollPane();
+        hBoxTitle = new HBox();
+        flowPaneCotainerFilms = new FlowPane();
+
+        /* EDITION DU TITRE */
         titleNouveaute = new Text("Nouveauté : ");
         titleNouveaute.setFont(Font.font("Arial", FontWeight.BOLD,15));
         hBoxTitle.getChildren().add(titleNouveaute);
 
+        /* EDITION DU VBOXCONTENEUR */
         vBoxContainer.minWidthProperty().bind(root.widthProperty());
         vBoxContainer.maxWidthProperty().bind(root.widthProperty());
-        hBoxCotainerFilms = new FlowPane();
-        hBoxCotainerFilms.setVgap(20);
-        hBoxCotainerFilms.setHgap(20);
-        hBoxCotainerFilms.setPadding(new Insets(10));
-        hBoxCotainerFilms.setAlignment(Pos.CENTER);
-        hBoxCotainerFilms.minWidthProperty().bind(vBoxContainer.widthProperty());
-        hBoxCotainerFilms.maxWidthProperty().bind(vBoxContainer.widthProperty());
+
+        /* EDITION DU CONTENEUR DES FILMS */
+        flowPaneCotainerFilms.setVgap(20);
+        flowPaneCotainerFilms.setHgap(20);
+        flowPaneCotainerFilms.setPadding(new Insets(10));
+        flowPaneCotainerFilms.setAlignment(Pos.CENTER);
+        flowPaneCotainerFilms.minWidthProperty().bind(vBoxContainer.widthProperty());
+        flowPaneCotainerFilms.maxWidthProperty().bind(vBoxContainer.widthProperty());
+        vBoxContainer.minHeightProperty().bind(root.heightProperty());
+
+
+        /* EDITION DU CONTENEUR SCROLLABLE */
         scrollPane.prefHeightProperty().bind(Bindings.divide(root.heightProperty(),1.5));
         scrollPane.maxWidthProperty().bind(vBoxContainer.widthProperty());
         scrollPane.minWidthProperty().bind(vBoxContainer.widthProperty());
         scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
         scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
-        scrollPane.setContent(hBoxCotainerFilms);
-
-
-        vBoxContainer.minHeightProperty().bind(root.heightProperty());
-
+        scrollPane.setContent(flowPaneCotainerFilms);
 
     }
 
+    /**
+     * Vide le FlowPane root
+     * Ajoute le Header et les element au conteneur qui va agencer nos element verticalement
+     * Puis Ajouter la VBox Container au root
+     * @param viewHeader
+     */
     public void clearAndInitRoot(ViewHeader viewHeader) {
         root.getChildren().clear();
-        vBoxContainer.getChildren().add(viewHeader.getHeader());
-        vBoxContainer.getChildren().addAll(hBoxTitle,scrollPane);
+        vBoxContainer.getChildren().addAll(viewHeader.getHeader(),hBoxTitle,scrollPane);
         root.getChildren().add(vBoxContainer);
     }
 
+    /**
+     * Boucle la liste de film pour creer les differentes tuiles
+     * @param arrayOfFilm
+     */
     public void updateAFilmTile(ArrayList<Film> arrayOfFilm){
         for(Film film : arrayOfFilm){
-            VBox vBox = new VBox();
-            vBox.setMaxWidth(100);
-            vBox.setAlignment(Pos.CENTER);
-            //vBox.setPadding(new Insets(15,0,0,0));
+            /* CREATION DU CONTENEUR QUI VA ACCEUILLIR L'IMAGE DU FILM (Tuile)*/
+            VBox vBoxTile = new VBox();
+            vBoxTile.setMaxWidth(100);
+            vBoxTile.setAlignment(Pos.CENTER);
+            vBoxTile.setMaxWidth(200); // Je ne sais pas si tout ca et neccessaire
+            vBoxTile.setMinWidth(100); //
+            vBoxTile.setPrefWidth(200); //
+
+            /* CEATION ET AJOUT DE L'IMAGE */
             ImageView img = new ImageView(Config.urlFilmImg + film.getImg());
-            //vBox.minWidthProperty().bind(Bindings.divide(root.widthProperty(),4));
-            //vBox.maxWidthProperty().bind(Bindings.divide(root.widthProperty(),4));
-            img.fitWidthProperty().bind(vBox.widthProperty());
-            vBox.setMaxWidth(200);
-            vBox.setMinWidth(100);
-            vBox.setPrefWidth(200);
+            img.fitWidthProperty().bind(vBoxTile.widthProperty());
             img.getStyleClass().add("shadow");
-            //img.setFitWidth(200);
             img.setPreserveRatio(true);
-            vBox.getChildren().add(img);
-            hBoxCotainerFilms.getChildren().add(vBox);
+
+            vBoxTile.getChildren().add(img);
+            flowPaneCotainerFilms.getChildren().add(vBoxTile); // Ajout de la tuile dans le conteneur Films
         }
     }
 
+    /*  GETTER  */
     public FlowPane getRoot(){
         return root;
     }
