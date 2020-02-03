@@ -1,0 +1,27 @@
+.bg{
+   -fx-background-color: radial-gradient(focus-distance 0% , center 50% 50% , radius 100% , white, grey);
+}
+
+.shadow {
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);
+}
+
+.shadow:hover {
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 15, 0, 0, 0);
+    -fx-cursor: hand;
+}
+
+.button {
+    -fx-background-color: radial-gradient(focus-distance 0% , center 50% 50% , radius 300% , #db202c, grey);
+    -fx-background-radius: 5;
+    -fx-background-insets: 0;
+    -fx-text-fill: white;
+}
+
+.button:hover {
+    -fx-background-color: radial-gradient(focus-distance 0% , center 50% 50% , radius 300% , #db202c, black);
+    -fx-background-radius: 7;
+    -fx-background-insets: 0;
+    -fx-text-fill: white;
+    -fx-cursor: hand;
+}
