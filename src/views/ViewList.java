@@ -59,7 +59,10 @@ public class ViewList {
 
         /* SEARCH BAR */
         imgSearch.setPreserveRatio(true);
-        imgSearch.setFitWidth(10);
+        imgSearch.setFitWidth(20);
+        txtFieldSearch.setPromptText("Recherche...");
+        hBoxSearchBar.setAlignment(Pos.CENTER);
+        HBox.setMargin(txtFieldSearch,new Insets(5,0,5,0));
         hBoxSearchBar.getChildren().addAll(imgSearch,txtFieldSearch);
 
     }
