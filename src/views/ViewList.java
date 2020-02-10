@@ -4,8 +4,10 @@ import controllers.ControllerList;
 import javafx.beans.binding.Bindings;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
@@ -20,8 +22,10 @@ import java.util.ArrayList;
 public class ViewList {
     private FlowPane root;
     private VBox vBoxContainer;// Conteneur qui agence verticalement les element
-    private FlowPane flowPaneContainerFilms; // Conteneur des films
+    private VBox vBoxContainerFilm;// Conteneur qui agence verticalement les films
     private ScrollPane scrollPane; // Conteneur Scrollable
+    private Image imageDelete = new Image(Config.urlIconeDelete);
+    private Image imgModify = new Image(Config.urlIconeModify);
 
     public ViewList(FlowPane root){
         this.root = root;
@@ -29,7 +33,7 @@ public class ViewList {
         /* CONSTRUCTION DES CONTENEURS  */
         vBoxContainer = new VBox();
         scrollPane = new ScrollPane();
-        flowPaneContainerFilms = new FlowPane();
+        vBoxContainerFilm = new VBox();
 
         /* EDITION VBOXCONTENEUR */
         vBoxContainer.minWidthProperty().bind(root.widthProperty());
@@ -38,15 +42,16 @@ public class ViewList {
 
 
         /* EDITION DU CONTENEUR DES FILMS */
-        flowPaneContainerFilms.setVgap(20);
-        flowPaneContainerFilms.minWidthProperty().bind(vBoxContainer.widthProperty());
-        flowPaneContainerFilms.maxWidthProperty().bind(vBoxContainer.widthProperty());
+        vBoxContainerFilm.setAlignment(Pos.CENTER);
+        vBoxContainerFilm.minWidthProperty().bind(root.widthProperty());
+        vBoxContainerFilm.maxWidthProperty().bind(root.widthProperty());
+        vBoxContainerFilm.minHeightProperty().bind(root.heightProperty());
 
         /* EDITION DU CONTENEUR SCROLLABLE */
         scrollPane.prefHeightProperty().bind(Bindings.divide(root.heightProperty(),1.5));
         scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
         scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
-        scrollPane.setContent(flowPaneContainerFilms);
+        scrollPane.setContent(vBoxContainerFilm);
 
     }
 
@@ -81,6 +86,21 @@ public class ViewList {
             /* IMG */
             ImageView img = new ImageView(Config.urlFilmImg + film.getImg());
             img.fitWidthProperty().bind(Bindings.divide(root.widthProperty(),5));
+
+            /* BARRE DE MODIF */
+            ImageView imageViewDelete = new ImageView(imageDelete);
+            imageViewDelete.setPreserveRatio(true);
+            imageViewDelete.setFitWidth(10);
+            ImageView imageViewModifiy = new ImageView(imgModify);
+            imageViewModifiy.setPreserveRatio(true);
+            imageViewModifiy.setFitWidth(10);
+            Button btnDelete = new Button();
+            btnDelete.setGraphic(imageViewDelete);
+            Button btnModify = new Button();
+            btnModify.setGraphic(imageViewModifiy);
+
+            HBox hBoxBarreDeModif = new HBox();
+            hBoxBarreDeModif.getChildren().addAll(btnModify,btnDelete);
 
             img.setPreserveRatio(true);
             /* TITRE */
@@ -135,12 +155,15 @@ public class ViewList {
 
             /* EDITION DE LA TUILES*/
             hBoxTile.getChildren().addAll(img,vBoxDetails);
-            hBoxTile.maxWidthProperty().bind(flowPaneContainerFilms.widthProperty());
-            hBoxTile.minWidthProperty().bind(flowPaneContainerFilms.widthProperty());
             hBoxTile.setAlignment(Pos.CENTER);
-            hBoxTile.getStyleClass().add("shadow");
 
-            flowPaneContainerFilms.getChildren().add(hBoxTile); // On met la tuile dans le conteneur de films
+            VBox vBoxTile = new VBox();
+            vBoxTile.getStyleClass().add("shadow");
+            VBox.setMargin(vBoxTile,new Insets(20,20,0,20));
+            vBoxTile.setPadding(new Insets(5,10,5,10));
+            hBoxBarreDeModif.setAlignment(Pos.CENTER_RIGHT);
+            vBoxTile.getChildren().addAll(hBoxBarreDeModif,hBoxTile);
+            vBoxContainerFilm.getChildren().add(vBoxTile); // On met la tuile dans le conteneur de films
         }
     }
 }
