@@ -29,6 +29,6 @@ public class Acteur {
 
     @Override
     public String toString() {
-        return  nom + " " + prenom;
+        return  prenom + " " + nom;
     }
 }
