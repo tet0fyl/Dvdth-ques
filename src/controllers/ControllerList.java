@@ -1,11 +1,13 @@
 package controllers;
 
+import javafx.event.EventHandler;
+import javafx.scene.input.MouseEvent;
 import models.managers.FilmManager;
 import views.ViewHandler;
 
 import java.sql.SQLException;
 
-public class ControllerList {
+public class ControllerList implements EventHandler<MouseEvent> {
     private ViewHandler viewHandler;
     private FilmManager filmManager;
 
@@ -13,9 +15,14 @@ public class ControllerList {
         this.viewHandler = viewHandler;
         this.filmManager = filmManager;
         try {
-            this.viewHandler.getViewList().updateAFilmTile(this.filmManager.getAll());
+            this.viewHandler.getViewList().updateAFilmTile(this.filmManager.getAll(), this);
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+
+    @Override
+    public void handle(MouseEvent mouseEvent) {
+        System.out.println(mouseEvent.getSource());
     }
 }

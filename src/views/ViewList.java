@@ -56,7 +56,7 @@ public class ViewList {
     }
 
     /**
-     * Event sur rien du tout pour le moment xD
+     * EventHandler
      * @param controllerList
      */
     public void setEvent(ControllerList controllerList) {
@@ -76,7 +76,7 @@ public class ViewList {
      * Idem que ViewHome sauf que l'on y affiche plus d'info
      * @param arrayOfFilm
      */
-    public void updateAFilmTile(ArrayList<Film> arrayOfFilm) {
+    public void updateAFilmTile(ArrayList<Film> arrayOfFilm, ControllerList controllerList) {
         for(Film film : arrayOfFilm){
 
             /*  INITIALISATION DE CHAQUE TILE */
@@ -98,11 +98,14 @@ public class ViewList {
             btnDelete.setGraphic(imageViewDelete);
             Button btnModify = new Button();
             btnModify.setGraphic(imageViewModifiy);
-
+            btnDelete.setId("del-" + film.getId());
+            btnModify.setId("mod-" + film.getId());
             HBox hBoxBarreDeModif = new HBox();
             hBoxBarreDeModif.getChildren().addAll(btnModify,btnDelete);
-
             img.setPreserveRatio(true);
+            btnDelete.setOnMouseClicked(controllerList);
+            btnModify.setOnMouseClicked(controllerList);
+
             /* TITRE */
             Label txtTitle = new Label(film.getNom());
             txtTitle.setFont(Font.font(20));
