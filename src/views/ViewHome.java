@@ -1,5 +1,6 @@
 package views;
 
+import controllers.ControllerHome;
 import javafx.beans.binding.Bindings;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -78,7 +79,7 @@ public class ViewHome {
      * Boucle la liste de film pour creer les differentes tuiles
      * @param arrayOfFilm
      */
-    public void updateAFilmTile(ArrayList<Film> arrayOfFilm){
+    public void updateAFilmTile(ArrayList<Film> arrayOfFilm, ControllerHome controllerHome){
         for(Film film : arrayOfFilm){
             /* CREATION DU CONTENEUR QUI VA ACCEUILLIR L'IMAGE DU FILM (Tuile)*/
             VBox vBoxTile = new VBox();
@@ -93,6 +94,9 @@ public class ViewHome {
             img.fitWidthProperty().bind(vBoxTile.widthProperty());
             img.getStyleClass().add("shadow");
             img.setPreserveRatio(true);
+            img.setId(film.getId());
+            img.setOnMouseClicked(controllerHome);
+
 
             vBoxTile.getChildren().add(img);
             flowPaneCotainerFilms.getChildren().add(vBoxTile); // Ajout de la tuile dans le conteneur Films

@@ -30,6 +30,6 @@ public class Realisateur {
 
     @Override
     public String toString() {
-        return nom + " " + prenom;
+        return prenom + " " + nom;
     }
 }

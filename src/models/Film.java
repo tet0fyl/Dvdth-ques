@@ -94,7 +94,7 @@ public class Film {
     public String getActeursToString() {
         String data = new String();
         for(Acteur acteur : acteurs) {
-            data += acteur.toString();
+            data += acteur.toString() + ",";
         }
         return data.substring(0,data.length()-1);
     }
@@ -106,7 +106,7 @@ public class Film {
     public String getGenresToString() {
         String data = new String();
         for(Genre genre : genres) {
-            data += genre.toString() + ", ";
+            data += genre.toString() + ",";
         }
         return data.substring(0,data.length()-1);
     }

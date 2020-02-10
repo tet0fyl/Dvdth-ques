@@ -1,13 +1,12 @@
 package views;
 
 import controllers.ControllerList;
+import controllers.ControllerSingleFilm;
 import javafx.beans.binding.Bindings;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.FlowPane;
@@ -20,23 +19,18 @@ import tools.Config;
 
 import java.util.ArrayList;
 
-public class ViewList {
+public class ViewSingleFilm {
     private FlowPane root;
     private VBox vBoxContainer;// Conteneur qui agence verticalement les element
     private VBox vBoxContainerFilm;// Conteneur qui agence verticalement les films
-    private ScrollPane scrollPane; // Conteneur Scrollable
     private Image imageDelete = new Image(Config.urlIconeDelete);
     private Image imgModify = new Image(Config.urlIconeModify);
-    private HBox hBoxSearchBar = new HBox();
-    private ImageView imgSearch = new ImageView(Config.urlIconeSearch);
-    private TextField txtFieldSearch = new TextField();
 
-    public ViewList(FlowPane root){
+    public ViewSingleFilm(FlowPane root){
         this.root = root;
 
         /* CONSTRUCTION DES CONTENEURS  */
         vBoxContainer = new VBox();
-        scrollPane = new ScrollPane();
         vBoxContainerFilm = new VBox();
 
         /* EDITION VBOXCONTENEUR */
@@ -46,24 +40,10 @@ public class ViewList {
 
 
         /* EDITION DU CONTENEUR DES FILMS */
-        vBoxContainerFilm.setAlignment(Pos.BASELINE_CENTER);
         vBoxContainerFilm.minWidthProperty().bind(root.widthProperty());
         vBoxContainerFilm.maxWidthProperty().bind(root.widthProperty());
         vBoxContainerFilm.minHeightProperty().bind(root.heightProperty());
-
-        /* EDITION DU CONTENEUR SCROLLABLE */
-        scrollPane.prefHeightProperty().bind(Bindings.divide(root.heightProperty(),1.5));
-        scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
-        scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
-        scrollPane.setContent(vBoxContainerFilm);
-
-        /* SEARCH BAR */
-        imgSearch.setPreserveRatio(true);
-        imgSearch.setFitWidth(20);
-        txtFieldSearch.setPromptText("Recherche...");
-        hBoxSearchBar.setAlignment(Pos.CENTER);
-        HBox.setMargin(txtFieldSearch,new Insets(5,0,5,0));
-        hBoxSearchBar.getChildren().addAll(imgSearch,txtFieldSearch);
+        vBoxContainerFilm.setPadding(new Insets(0,20,0,20));
 
     }
 
@@ -72,7 +52,6 @@ public class ViewList {
      * @param controllerList
      */
     public void setEvent(ControllerList controllerList) {
-        txtFieldSearch.setOnKeyTyped(controllerList);
     }
 
     /**
@@ -81,7 +60,7 @@ public class ViewList {
      */
     public void clearAndInitRoot(ViewHeader viewHeader) {
         root.getChildren().clear();
-        vBoxContainer.getChildren().addAll(viewHeader.getHeader(),hBoxSearchBar,scrollPane);
+        vBoxContainer.getChildren().addAll(viewHeader.getHeader(),vBoxContainerFilm);
         root.getChildren().add(vBoxContainer);
     }
 
@@ -89,21 +68,16 @@ public class ViewList {
      * Idem que ViewHome sauf que l'on y affiche plus d'info
      * @param arrayOfFilm
      */
-    public void updateAFilmTile(ArrayList<Film> arrayOfFilm, ControllerList controllerList) {
-        vBoxContainerFilm.getChildren().clear();
+    public void updateFilm(ArrayList<Film> arrayOfFilm, ControllerSingleFilm controllerSingleFilm) {
         for(Film film : arrayOfFilm){
 
             /*  INITIALISATION DE CHAQUE TILE */
             HBox hBoxTile = new HBox(); // Conteneur principale
             VBox vBoxDetails = new VBox(); // Conteneur Nom, Annee, Content, Realisateur,...
-            hBoxTile.setFocusTraversable(true);
-            vBoxDetails.setFocusTraversable(true);
 
             /* IMG */
             ImageView img = new ImageView(Config.urlFilmImg + film.getImg());
             img.fitWidthProperty().bind(Bindings.divide(root.widthProperty(),5));
-            img.setId(film.getId());
-            img.setOnMouseClicked(controllerList);
 
             /* BARRE DE MODIF */
             ImageView imageViewDelete = new ImageView(imageDelete);
@@ -121,8 +95,8 @@ public class ViewList {
             HBox hBoxBarreDeModif = new HBox();
             hBoxBarreDeModif.getChildren().addAll(btnModify,btnDelete);
             img.setPreserveRatio(true);
-            btnDelete.setOnMouseClicked(controllerList);
-            btnModify.setOnMouseClicked(controllerList);
+            btnDelete.setOnMouseClicked(controllerSingleFilm);
+            btnModify.setOnMouseClicked(controllerSingleFilm);
 
             /* TITRE */
             Label txtTitle = new Label(film.getNom());
@@ -133,13 +107,12 @@ public class ViewList {
             Label txtAnnee = new Label(film.getNom());
             txtTitle.setWrapText(true);
 
-
             /* NOTE */
             Label txtNote = new Label(film.getNote() + "/ 5");
             txtNote.setWrapText(true);
 
             /* CONTENT */
-            Label txtContent = new Label(film.getContent((byte) 100));
+            Label txtContent = new Label(film.getContent());
             txtContent.setWrapText(true);
 
             /* REALISATEUR */
@@ -157,7 +130,6 @@ public class ViewList {
             titleActeur.setFont(Font.font("Arial",FontWeight.BOLD,14));
             VboxActeur.getChildren().addAll(titleActeur,dataActeurs);
 
-
             /* GENRES */
             HBox vBoxGenre = new HBox();
             Label titleGenre = new Label("Genre : ");
@@ -172,7 +144,6 @@ public class ViewList {
             titleNationalite.setFont(Font.font("Arial",FontWeight.BOLD,14));
             vBoxNationalite.getChildren().addAll(titleNationalite,dataNationalite);
 
-
             /* AJOUT DANS VBOXDETAILS */
             vBoxDetails.getChildren().addAll(txtTitle,txtAnnee,txtNote,txtContent,vBoxRealisateur,VboxActeur,vBoxGenre,vBoxNationalite);
             vBoxDetails.setPadding(new Insets(5));
@@ -183,16 +154,10 @@ public class ViewList {
 
             VBox vBoxTile = new VBox();
             vBoxTile.getStyleClass().add("shadow");
-            VBox.setMargin(vBoxTile,new Insets(20,20,0,20));
-            vBoxTile.setPadding(new Insets(5,10,5,10));
             hBoxBarreDeModif.setAlignment(Pos.CENTER_RIGHT);
             vBoxTile.getChildren().addAll(hBoxBarreDeModif,hBoxTile);
-
+            vBoxTile.setPadding(new Insets(10));
             vBoxContainerFilm.getChildren().add(vBoxTile); // On met la tuile dans le conteneur de films
         }
-    }
-
-    public TextField getTxtFieldSearch(){
-        return txtFieldSearch;
     }
 }

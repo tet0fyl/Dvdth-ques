@@ -16,11 +16,13 @@ public class ViewHandler extends Application {
     private ViewHeader viewHeader;
     private ViewLoadScreen viewLoadScreen;
     private ViewAddFilm viewAddFilm;
+    private ViewSingleFilm viewSingleFilm;
     private ControllerLoadScreen controllerLoadScreen;
     private ControllerHome controllerHome;
     private ControllerList controllerList;
     private ControllerHeader controllerHeader;
     private ControllerAddFilm controllerAddFilm;
+    private ControllerSingleFilm controllerSingleFilm;
     private FilmManager filmManager;
     private RealisateurManager realisateurManager;
     private FlowPane root;
@@ -104,6 +106,12 @@ public class ViewHandler extends Application {
         controllerAddFilm = new ControllerAddFilm(this);
     }
 
+    public void afficherSingleFilm(int idFilm){
+        viewSingleFilm = new ViewSingleFilm(root);
+        viewSingleFilm.clearAndInitRoot(getViewHeader());
+        controllerSingleFilm = new ControllerSingleFilm(this, filmManager, idFilm);
+    }
+
     /*  GETTER */
     public ViewHome getViewHome(){
         return viewHome;
@@ -122,6 +130,10 @@ public class ViewHandler extends Application {
 
     public ViewList getViewList(){
         return viewList;
+    }
+
+    public ViewSingleFilm getViewSingleFilm(){
+        return  viewSingleFilm;
     }
 
 }
