@@ -7,6 +7,9 @@ public class Config {
     public static String urlImgNameLogo = "ressources/logo/DVD-STORE.png";
     public static String urlLogoSound = "src/ressources/sounds/LogoSound.mp2";
     public static String urlErrorSound = "src/ressources/sounds/ErrorSound.mp2";
+    public static String urlIconeSearch = "ressources/icone/search.png";
+    public static String urlIconeDelete = "ressources/icone/delete.png";
+    public static String urlIconeModify = "ressources/icone/modify.png";
 
 
     public static String urlStyleSheet = "ressources/css/styles.css";
