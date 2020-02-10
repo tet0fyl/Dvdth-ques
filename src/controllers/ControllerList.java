@@ -42,7 +42,11 @@ public class ControllerList implements EventHandler<InputEvent> {
             }
         }
         if(inputEvent.getEventType().equals(KeyEvent.KEY_TYPED)){
-            filterFilmArrayList = filmArrayList.stream().filter( items -> items.getNom().contains(viewHandler.getViewList().getTxtFieldSearch().getText())).collect(Collectors.toCollection(ArrayList::new));
+            filterFilmArrayList = filmArrayList.stream().filter( items -> (
+                                    items.getNom().toLowerCase().contains(viewHandler.getViewList().getTxtFieldSearch().getText().toLowerCase()) ||
+                                            items.getRealisateur().toString().toLowerCase().contains(viewHandler.getViewList().getTxtFieldSearch().getText().toLowerCase()) ||
+                                            items.getActeursToString().toLowerCase().contains(viewHandler.getViewList().getTxtFieldSearch().getText().toLowerCase())
+            )).collect(Collectors.toCollection(ArrayList::new));
             viewHandler.getViewList().updateAFilmTile(filterFilmArrayList,this);
         }
     }
