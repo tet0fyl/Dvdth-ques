@@ -11,6 +11,6 @@ public class Config {
 
     public static String urlStyleSheet = "ressources/css/styles.css";
 
-    public static boolean skipIntro = false;
+    public static boolean skipIntro = true;
 
 }

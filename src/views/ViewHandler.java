@@ -5,11 +5,9 @@ import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.layout.FlowPane;
 import javafx.stage.Stage;
-import models.RealisateurManager;
+import models.managers.RealisateurManager;
 import models.managers.FilmManager;
 import tools.Config;
-
-import java.sql.SQLException;
 
 public class ViewHandler extends Application {
     private Stage primaryStage;
@@ -45,7 +43,6 @@ public class ViewHandler extends Application {
 
         /* ON PREPARE L'OBJET FILMMANAGER QUI NOUS SERVIRA POUR TOUTE LES REQUETES */
         filmManager = new FilmManager();
-        realisateurManager = new RealisateurManager();
 
         /* ON EDITE LE STAGE */
         primaryStage.setTitle("Dvdtheques");
@@ -104,7 +101,7 @@ public class ViewHandler extends Application {
     public void afficherAddFilm() {
         viewAddFilm = new ViewAddFilm(root);
         viewAddFilm.clearAndInitRoot(getViewHeader());
-        controllerAddFilm = new ControllerAddFilm(this,realisateurManager);
+        controllerAddFilm = new ControllerAddFilm(this);
     }
 
     /*  GETTER */
