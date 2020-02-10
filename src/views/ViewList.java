@@ -82,10 +82,14 @@ public class ViewList {
             /*  INITIALISATION DE CHAQUE TILE */
             HBox hBoxTile = new HBox(); // Conteneur principale
             VBox vBoxDetails = new VBox(); // Conteneur Nom, Annee, Content, Realisateur,...
+            hBoxTile.setFocusTraversable(true);
+            vBoxDetails.setFocusTraversable(true);
 
             /* IMG */
             ImageView img = new ImageView(Config.urlFilmImg + film.getImg());
             img.fitWidthProperty().bind(Bindings.divide(root.widthProperty(),5));
+            img.setId(film.getId());
+            img.setOnMouseClicked(controllerList);
 
             /* BARRE DE MODIF */
             ImageView imageViewDelete = new ImageView(imageDelete);
@@ -115,6 +119,7 @@ public class ViewList {
             Label txtAnnee = new Label(film.getNom());
             txtTitle.setWrapText(true);
 
+
             /* NOTE */
             Label txtNote = new Label(film.getNote() + "/ 5");
             txtNote.setWrapText(true);
@@ -138,6 +143,7 @@ public class ViewList {
             titleActeur.setFont(Font.font("Arial",FontWeight.BOLD,14));
             VboxActeur.getChildren().addAll(titleActeur,dataActeurs);
 
+
             /* GENRES */
             HBox vBoxGenre = new HBox();
             Label titleGenre = new Label("Genre : ");
@@ -151,6 +157,7 @@ public class ViewList {
             Label dataNationalite = new Label(film.getNationalite().toString());
             titleNationalite.setFont(Font.font("Arial",FontWeight.BOLD,14));
             vBoxNationalite.getChildren().addAll(titleNationalite,dataNationalite);
+
 
             /* AJOUT DANS VBOXDETAILS */
             vBoxDetails.getChildren().addAll(txtTitle,txtAnnee,txtNote,txtContent,vBoxRealisateur,VboxActeur,vBoxGenre,vBoxNationalite);
@@ -166,6 +173,7 @@ public class ViewList {
             vBoxTile.setPadding(new Insets(5,10,5,10));
             hBoxBarreDeModif.setAlignment(Pos.CENTER_RIGHT);
             vBoxTile.getChildren().addAll(hBoxBarreDeModif,hBoxTile);
+
             vBoxContainerFilm.getChildren().add(vBoxTile); // On met la tuile dans le conteneur de films
         }
     }

@@ -23,6 +23,8 @@ public class ControllerList implements EventHandler<MouseEvent> {
 
     @Override
     public void handle(MouseEvent mouseEvent) {
-        System.out.println(mouseEvent.getSource());
+        if(mouseEvent.getPickResult().getIntersectedNode().getId() != null){
+            viewHandler.afficherSingleFilm(Integer.valueOf(mouseEvent.getPickResult().getIntersectedNode().getId()));
+        }
     }
 }

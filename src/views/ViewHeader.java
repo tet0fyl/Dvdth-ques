@@ -54,8 +54,6 @@ public class ViewHeader {
             hBoxHeader.setAlignment(Pos.CENTER);
             hBoxHeader.minHeightProperty().bind(Bindings.divide(root.heightProperty(),4.5));// redimentionement auto du header par rapport a la hauteur du root / 4.5
             hBoxHeader.getChildren().addAll(hBoxLogo,flowPaneNavBar);
-
-
         }
 
     /**

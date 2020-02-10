@@ -7,7 +7,6 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.FlowPane;
@@ -41,10 +40,10 @@ public class ViewSingleFilm {
 
 
         /* EDITION DU CONTENEUR DES FILMS */
-        vBoxContainerFilm.setAlignment(Pos.CENTER);
         vBoxContainerFilm.minWidthProperty().bind(root.widthProperty());
         vBoxContainerFilm.maxWidthProperty().bind(root.widthProperty());
         vBoxContainerFilm.minHeightProperty().bind(root.heightProperty());
+        vBoxContainerFilm.setPadding(new Insets(0,20,0,20));
 
     }
 
@@ -113,7 +112,7 @@ public class ViewSingleFilm {
             txtNote.setWrapText(true);
 
             /* CONTENT */
-            Label txtContent = new Label(film.getContent((byte) 100));
+            Label txtContent = new Label(film.getContent());
             txtContent.setWrapText(true);
 
             /* REALISATEUR */
@@ -155,10 +154,9 @@ public class ViewSingleFilm {
 
             VBox vBoxTile = new VBox();
             vBoxTile.getStyleClass().add("shadow");
-            VBox.setMargin(vBoxTile,new Insets(20,20,0,20));
-            vBoxTile.setPadding(new Insets(5,10,5,10));
             hBoxBarreDeModif.setAlignment(Pos.CENTER_RIGHT);
             vBoxTile.getChildren().addAll(hBoxBarreDeModif,hBoxTile);
+            vBoxTile.setPadding(new Insets(10));
             vBoxContainerFilm.getChildren().add(vBoxTile); // On met la tuile dans le conteneur de films
         }
     }

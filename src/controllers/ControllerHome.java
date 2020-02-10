@@ -29,9 +29,7 @@ public class ControllerHome implements EventHandler<MouseEvent>{
 
     @Override
     public void handle(MouseEvent mouseEvent) {
-        System.out.println(mouseEvent.getPickResult().getIntersectedNode().getId());
         if(mouseEvent.getPickResult().getIntersectedNode().getId() != null){
-            System.out.println("CA SWITCH");
             viewHandler.afficherSingleFilm(Integer.valueOf(mouseEvent.getPickResult().getIntersectedNode().getId()));
         }
     }
