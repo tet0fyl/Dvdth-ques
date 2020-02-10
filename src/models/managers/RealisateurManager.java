@@ -1,8 +1,5 @@
 package models.managers;
-
 import models.Realisateur;
-import models.managers.BDDManager;
-
 import java.sql.SQLException;
 import java.util.ArrayList;
 

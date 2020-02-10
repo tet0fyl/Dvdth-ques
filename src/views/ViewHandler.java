@@ -117,7 +117,8 @@ public class ViewHandler extends Application {
         return viewHeader;
     }
 
-    public ViewAddFilm getViewAddFilm() { return viewAddFilm; }
+    public ViewAddFilm getViewAddFilm()
+    { return viewAddFilm; }
 
     public ViewList getViewList(){
         return viewList;

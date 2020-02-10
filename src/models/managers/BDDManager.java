@@ -10,7 +10,7 @@ public abstract class BDDManager {
     protected ResultSet rs = null;
 
     /* CONFIG BDD */
-    private String url = "jdbc:mysql://localhost/Dvdtheque";
+    private String url = "jdbc:mysql://localhost/dvdtheque?zeroDateTimeBehavior=CONVERT_TO_NULL&serverTimezone=UTC";
     private String user = "root";
     private String password = "";
 
