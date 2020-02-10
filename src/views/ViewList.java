@@ -138,6 +138,7 @@ public class ViewList {
             hBoxTile.maxWidthProperty().bind(flowPaneContainerFilms.widthProperty());
             hBoxTile.minWidthProperty().bind(flowPaneContainerFilms.widthProperty());
             hBoxTile.setAlignment(Pos.CENTER);
+            hBoxTile.getStyleClass().add("shadow");
 
             flowPaneContainerFilms.getChildren().add(hBoxTile); // On met la tuile dans le conteneur de films
         }
