@@ -7,6 +7,7 @@ import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.FlowPane;
@@ -26,6 +27,9 @@ public class ViewList {
     private ScrollPane scrollPane; // Conteneur Scrollable
     private Image imageDelete = new Image(Config.urlIconeDelete);
     private Image imgModify = new Image(Config.urlIconeModify);
+    private HBox hBoxSearchBar = new HBox();
+    private ImageView imgSearch = new ImageView(Config.urlIconeSearch);
+    private TextField txtFieldSearch = new TextField();
 
     public ViewList(FlowPane root){
         this.root = root;
@@ -42,7 +46,7 @@ public class ViewList {
 
 
         /* EDITION DU CONTENEUR DES FILMS */
-        vBoxContainerFilm.setAlignment(Pos.CENTER);
+        vBoxContainerFilm.setAlignment(Pos.BASELINE_CENTER);
         vBoxContainerFilm.minWidthProperty().bind(root.widthProperty());
         vBoxContainerFilm.maxWidthProperty().bind(root.widthProperty());
         vBoxContainerFilm.minHeightProperty().bind(root.heightProperty());
@@ -53,6 +57,11 @@ public class ViewList {
         scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
         scrollPane.setContent(vBoxContainerFilm);
 
+        /* SEARCH BAR */
+        imgSearch.setPreserveRatio(true);
+        imgSearch.setFitWidth(10);
+        hBoxSearchBar.getChildren().addAll(imgSearch,txtFieldSearch);
+
     }
 
     /**
@@ -60,6 +69,7 @@ public class ViewList {
      * @param controllerList
      */
     public void setEvent(ControllerList controllerList) {
+        txtFieldSearch.setOnKeyTyped(controllerList);
     }
 
     /**
@@ -68,7 +78,7 @@ public class ViewList {
      */
     public void clearAndInitRoot(ViewHeader viewHeader) {
         root.getChildren().clear();
-        vBoxContainer.getChildren().addAll(viewHeader.getHeader(),scrollPane);
+        vBoxContainer.getChildren().addAll(viewHeader.getHeader(),hBoxSearchBar,scrollPane);
         root.getChildren().add(vBoxContainer);
     }
 
@@ -77,6 +87,7 @@ public class ViewList {
      * @param arrayOfFilm
      */
     public void updateAFilmTile(ArrayList<Film> arrayOfFilm, ControllerList controllerList) {
+        vBoxContainerFilm.getChildren().clear();
         for(Film film : arrayOfFilm){
 
             /*  INITIALISATION DE CHAQUE TILE */
@@ -176,5 +187,9 @@ public class ViewList {
 
             vBoxContainerFilm.getChildren().add(vBoxTile); // On met la tuile dans le conteneur de films
         }
+    }
+
+    public TextField getTxtFieldSearch(){
+        return txtFieldSearch;
     }
 }
