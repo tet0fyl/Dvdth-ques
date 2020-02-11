@@ -1,8 +1,6 @@
 package controllers;
 
-import javafx.event.Event;
 import javafx.event.EventHandler;
-import javafx.event.EventType;
 import javafx.scene.input.InputEvent;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
@@ -38,8 +36,23 @@ public class ControllerList implements EventHandler<InputEvent> {
     public void handle(InputEvent inputEvent) {
         if(inputEvent.getEventType().equals(MouseEvent.MOUSE_CLICKED)){
             if(((MouseEvent)inputEvent).getPickResult().getIntersectedNode().getId() != null){
-                viewHandler.afficherSingleFilm(Integer.valueOf(((MouseEvent)inputEvent).getPickResult().getIntersectedNode().getId()));
-            }
+                    try{
+                        viewHandler.afficherSingleFilm(Integer.valueOf(((MouseEvent)inputEvent).getPickResult().getIntersectedNode().getId()));
+                    } catch (NumberFormatException e){
+                        if(((MouseEvent)inputEvent).getPickResult().getIntersectedNode().getId().contains("del")){
+                            System.out.println("cross click");
+                            try {
+                                filmManager.deleteFilm(Integer.valueOf(((MouseEvent)inputEvent).getPickResult().getIntersectedNode().getId().split("-")[1]));
+                                viewHandler.getViewList().updateAFilmTile(filmManager.getAll(), this);
+                            } catch (SQLException ex) {
+                                ex.printStackTrace();
+                            }
+                        } else {
+                            System.out.println("pen click");
+
+                        }
+                    }
+                }
         }
         if(inputEvent.getEventType().equals(KeyEvent.KEY_TYPED)){
             filterFilmArrayList = filmArrayList.stream().filter( items -> (

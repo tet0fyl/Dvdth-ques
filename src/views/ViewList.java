@@ -10,11 +10,10 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.FlowPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
+import javafx.stage.PopupWindow;
 import models.Film;
 import tools.Config;
 
@@ -33,6 +32,8 @@ public class ViewList {
 
     public ViewList(FlowPane root){
         this.root = root;
+
+        /* Group For Popup */
 
         /* CONSTRUCTION DES CONTENEURS  */
         vBoxContainer = new VBox();
@@ -64,7 +65,6 @@ public class ViewList {
         hBoxSearchBar.setAlignment(Pos.CENTER);
         HBox.setMargin(txtFieldSearch,new Insets(5,0,5,0));
         hBoxSearchBar.getChildren().addAll(imgSearch,txtFieldSearch);
-
     }
 
     /**
@@ -187,7 +187,6 @@ public class ViewList {
             vBoxTile.setPadding(new Insets(5,10,5,10));
             hBoxBarreDeModif.setAlignment(Pos.CENTER_RIGHT);
             vBoxTile.getChildren().addAll(hBoxBarreDeModif,hBoxTile);
-
             vBoxContainerFilm.getChildren().add(vBoxTile); // On met la tuile dans le conteneur de films
         }
     }

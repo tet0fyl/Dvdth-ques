@@ -5,6 +5,7 @@ import java.util.ArrayList;
 public class Film {
     /* C'ES VARAIBLE STATIC CORESPONDENT AUX NOM DE COLONNE DANS LA BDD */
     public static String ID_COLNAME = "Id_Film";
+    public static String ID_ASSOC_COLNAME = "Film_id";
     public static String NOM_COLNAME = "Nom_Film";
     public static String ANNEE_COLNAME = "Annee_Film";
     public static String NOTE_COLNAME = "Note_Film";
@@ -12,6 +13,7 @@ public class Film {
     public static String IMG_COLNAME = "Img_Film";
     public static String ACTEURS_COLNAME = "acteurs";
     public static String GENRES_COLNAME = "genres";
+
 
     private String id;
     private String nom;
