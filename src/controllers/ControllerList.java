@@ -49,6 +49,7 @@ public class ControllerList implements EventHandler<InputEvent> {
                             }
                         } else {
                             System.out.println("pen click");
+                            //TODO: envoyer le film vers le formulaire de modification
 
                         }
                     }
