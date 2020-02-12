@@ -11,6 +11,7 @@ public class Config {
     public static String urlIconeDelete = "ressources/icone/delete.png";
     public static String urlIconeModify = "ressources/icone/modify.png";
     public static String urlIconePlus = "ressources/icone/plus.png";
+    public static String urlIconeMinus = "ressources/icone/minus.png";
 
 
     public static String urlStyleSheet = "ressources/css/styles.css";

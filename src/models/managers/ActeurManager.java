@@ -24,9 +24,18 @@ public class ActeurManager  extends BDDManager {
         }
 
         public int insert(String valuesActeurNom, String valuesActeurPrenom) throws SQLException {
-            String query = "INSERT INTO `acteur`(`Id_Acteur`, `Nom_Acteur`, `Prenom_Acteur`) VALUES (null , '"+valuesActeurNom+ "' , '"+valuesActeurPrenom+ "')";
             this.start();
             st = db.createStatement();
+
+            String query = "SELECT WHERE LIMIT 1";// REQUETE SELECT POUR SAVOIR SI L'ACTEUR EXISTE
+
+            rs = st.executeQuery(query);
+
+            while (rs.next()){
+                 return Integer.parseInt(rs.getString(Acteur.ID_COLNAME));
+            }
+
+            query = "INSERT INTO `acteur`(`Id_Acteur`, `Nom_Acteur`, `Prenom_Acteur`) VALUES (null , '"+valuesActeurNom+ "' , '"+valuesActeurPrenom+ "')";
             st.executeUpdate(query, Statement.RETURN_GENERATED_KEYS);
             rs = st.getGeneratedKeys();
             rs.next();

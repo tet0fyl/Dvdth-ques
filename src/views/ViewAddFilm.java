@@ -4,21 +4,20 @@ import controllers.ControllerAddFilm;
 import javafx.beans.binding.Bindings;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.*;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
-import javafx.stage.FileChooser;
 import tools.Config;
 
-import java.io.File;
 import java.util.ArrayList;
 
 public class ViewAddFilm {
@@ -86,38 +85,46 @@ public class ViewAddFilm {
     }
 
     public void addSuplementaireActorField(){
-
+        HBox newActorFiled = new HBox();
+        TextField txtFieldNewNomActeur = new TextField();
+        txtFieldNewNomActeur.setPromptText("Nom");
+        TextField txtFieldNewPrenomActeur = new TextField();
+        txtFieldNewPrenomActeur.setPromptText("Prenom");
+        newActorFiled.getChildren().addAll(txtFieldNewNomActeur,txtFieldNewPrenomActeur);
+        vBoxAddActeur.getChildren().add(newActorFiled);
     }
 
     public void addSuplementaireGenreField(){
-
+        HBox newGenreField = new HBox();
+        TextField txtFieldNewGenre = new TextField();
+        txtFieldNewGenre.setPromptText("Libelle");
+        newGenreField.getChildren().add(txtFieldNewGenre);
+        vBoxAddGenre.getChildren().add(newGenreField);
     }
 
     public void initDuFormulaire(){
 
         VBox vBoxFormulaire = new VBox();
+        vBoxFormulaire.prefWidthProperty().bind(root.widthProperty());
+        vBoxFormulaire.setAlignment(Pos.CENTER);
 
         /* CHAMPS NOM FILM */
-        HBox hBoxNomFilm = new HBox();
-        Label lblNomFilm = new Label("NOM DU FILM:");
-        lblNomFilm.setFont(Font.font(15));
-        lblNomFilm.setWrapText(true);
+        HBox hBoxNomFilm = initHBox();
+        Label lblNomFilm = initLabel("NOM DU FILM:");
         txtFieldNomFilm = new TextField();
         hBoxNomFilm.getChildren().addAll(lblNomFilm, txtFieldNomFilm);
 
         /* CHAMPS ANNEE */
-        HBox hBoxAnne = new HBox();
-        Label lblAnnee = new Label("ANNEE DU FILM:");
+        HBox hBoxAnne = initHBox();
+        Label lblAnnee = initLabel("ANNEE DU FILM:");
         lblAnnee.setFont(Font.font(15));
         lblAnnee.setWrapText(true);
         txtFieldAnneeFilm = new TextField();
         hBoxAnne.getChildren().addAll(lblAnnee, txtFieldAnneeFilm);
 
         /* CHAMPS NOTE */
-        HBox hBoxNote = new HBox();
-        Label lblNote = new Label("NOTE:");
-        lblNote.setFont(Font.font(15));
-        lblNote.setWrapText(true);
+        HBox hBoxNote = initHBox();
+        Label lblNote = initLabel("NOTE:");
         ArrayList<Integer>listNote = new ArrayList<Integer>();
         listNote.add(0);
         listNote.add(1);
@@ -131,26 +138,20 @@ public class ViewAddFilm {
         hBoxNote.getChildren().addAll(lblNote, choiceBoxNote);
 
         /* CHAMPS DESCRIPTION */
-        HBox hBoxDescription = new HBox();
-        Label lblDescription = new Label("DESCRIPTION:");
-        lblDescription.setFont(Font.font(15));
-        lblDescription.setWrapText(true);
+        HBox hBoxDescription = initHBox();
+        Label lblDescription =  initLabel("DESCRIPTION:");
         descriptionFilm = new TextArea();
         hBoxDescription.getChildren().addAll(lblDescription,descriptionFilm);
 
         /* CHAMPS NATIONALITE */
-        HBox hBoxNationalite = new HBox();
-        Label lblNationalite = new Label("NATIONALITE:");
-        lblNationalite.setFont(Font.font(15));
-        lblNationalite.setWrapText(true);
+        HBox hBoxNationalite = initHBox();
+        Label lblNationalite = initLabel("NATIONALITE:");
         txtFieldNationalite = new TextField();
         hBoxNationalite.getChildren().addAll(lblNationalite,txtFieldNationalite);
 
         /* CHAMPS REALISATEUR */
-        HBox hBoxRealisateur = new HBox();
-        Label lblRealisateur = new Label("REALISATEUR:");
-        lblRealisateur.setFont(Font.font(15));
-        lblRealisateur.setWrapText(true);
+        HBox hBoxRealisateur = initHBox();
+        Label lblRealisateur = initLabel("REALISATEUR:");
         txtFieldNomRealisateur = new TextField();
         txtFieldNomRealisateur.setPromptText("Nom");
         txtFieldPrenomRealisateur = new TextField();
@@ -159,11 +160,9 @@ public class ViewAddFilm {
 
         /* CHAMPS ACTEURS */
         vBoxAddActeur = new VBox();
-        HBox hBoxFieldActeur = new HBox();
+        HBox hBoxFieldActeur = initHBox();
         HBox hBoxActeur = new HBox();
-        Label lblActeur = new Label("ACTEUR:");
-        lblActeur.setFont(Font.font(15));
-        lblActeur.setWrapText(true);
+        Label lblActeur = initLabel("ACTEUR:");
         txtFieldNomActeur = new TextField();
         txtFieldNomActeur.setPromptText("Nom");
         txtFieldPrenomActeur = new TextField();
@@ -174,20 +173,15 @@ public class ViewAddFilm {
 
         /* CHAMPS GENRES */
         vBoxAddGenre = new VBox();
-        HBox hBoxGenre = new HBox();
-        Label lblGenre = new Label(" GENRE:");
-        lblGenre.setFont(Font.font(15));
-        lblGenre.setWrapText(true);
+        HBox hBoxGenre = initHBox();
+        Label lblGenre = initLabel(" GENRE:");
         txtFieldGenre = new TextField();
         vBoxAddGenre.getChildren().add(txtFieldGenre);
         hBoxGenre.getChildren().addAll(lblGenre,vBoxAddGenre,btnAddGenre);
 
         /* IMAGE AFFICHE */
-        HBox hBoxImgFilm = new HBox();
-        Label lblImgFil = new Label("ImageFilm");
-        lblGenre.setFont(Font.font(15));
-        lblGenre.setWrapText(true);
-        //selectedFile = new File();
+        HBox hBoxImgFilm = initHBox();
+        Label lblImgFil = initLabel("ImageFilm");
         btnUploadFile = new Button("Upload File");
         hBoxImgFilm.getChildren().addAll(lblImgFil,btnUploadFile);
 
@@ -202,7 +196,26 @@ public class ViewAddFilm {
     public void setEvent(ControllerAddFilm controllerAddFilm){
         btnUploadFile.setOnMouseClicked(controllerAddFilm);
         btnSubmit.setOnMouseClicked(controllerAddFilm);
+        btnAddGenre.setOnMouseClicked(controllerAddFilm);
+        btnAddActeur.setOnMouseClicked(controllerAddFilm);
     }
+
+    public Label initLabel(String text){
+        Label lbl = new Label(text);
+        lbl.setAlignment(Pos.CENTER_RIGHT);
+        lbl.setFont(Font.font(15));
+        lbl.setWrapText(true);
+        lbl.setMinWidth(150);
+        HBox.setMargin(lbl,new Insets(0,10,0,0));
+        return lbl;
+    }
+
+    public HBox initHBox(){
+        HBox hBox = new HBox();
+        hBox.setAlignment(Pos.CENTER_LEFT);
+        return hBox;
+    }
+
 
     //TODO: mettre tout les getters ici
     public FlowPane getRoot(){
