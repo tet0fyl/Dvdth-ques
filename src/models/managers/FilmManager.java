@@ -5,6 +5,7 @@ import models.Nationalite;
 import models.Realisateur;
 
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 
 
@@ -190,6 +191,18 @@ public class FilmManager extends BDDManager{
         st.executeUpdate(query);
         System.out.println(query);
         this.stop();
+    }
+    public int insert(String valuesNomFilm, int valuesAnnee, int valuesNote, String valuesDescription ) throws SQLException {
+        String query = "INSERT INTO `film`(`Id_Film`, `Nom_Film`, `Annee_Film`, `Note_Film`, `Content_Film`, `Img_Film`, `Realisateur_id`, `Nationalite_id`) VALUES " +
+                "(null , '"+valuesNomFilm+ "' , "+valuesAnnee+ ", "+valuesNote+ " , '"+valuesDescription+ "', null, null )";
+        this.start();
+        st = db.createStatement();
+        st.executeUpdate(query, Statement.RETURN_GENERATED_KEYS);
+        rs = st.getGeneratedKeys();
+        rs.next();
+        int result =  Integer.parseInt(rs.getString(1));
+        this.stop();
+        return result;
     }
 
 

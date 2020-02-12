@@ -7,10 +7,7 @@ import models.Acteur;
 import models.Genre;
 import models.Nationalite;
 import models.Realisateur;
-import models.managers.ActeurManager;
-import models.managers.NationaliteManager;
-import models.managers.GenreManager;
-import models.managers.RealisateurManager;
+import models.managers.*;
 import tools.Config;
 import views.ViewHandler;
 
@@ -27,6 +24,7 @@ import static java.lang.Integer.parseInt;
 
 public class ControllerAddFilm implements EventHandler<MouseEvent> {
     private RealisateurManager realisateurManager;
+    private FilmManager filmManager;
     private GenreManager genreManager;
     private ActeurManager acteurManager;
     private NationaliteManager nationaliteManager;
@@ -69,13 +67,13 @@ public class ControllerAddFilm implements EventHandler<MouseEvent> {
             //TODO: Choper tout les textes field
 
             String valuesNomFilm = (viewHandler.getViewAddFilm().getTxtFieldNomFilm().getText());
-            //int valuesAnnee = parseInt(viewHandler.getViewAddFilm().getTxtFieldAnneeFilm().getText());
-            //int valuesNote = viewHandler.getViewAddFilm().getChoiceBoxNote().getSelectionModel().getSelectedIndex();
+            String valuesDescription = (viewHandler.getViewAddFilm().getDescriptionFilm().getText());
+            int valuesAnnee = parseInt(viewHandler.getViewAddFilm().getTxtFieldAnneeFilm().getText());
+            int valuesNote = viewHandler.getViewAddFilm().getChoiceBoxNote().getSelectionModel().getSelectedIndex();
             String valuesActeurNom = (viewHandler.getViewAddFilm().getTxtFieldPrenomActeur().getText());
             String valuesActeurPrenom = (viewHandler.getViewAddFilm().getTxtFieldPrenomActeur().getText());
             String valuesRealisateurNom = (viewHandler.getViewAddFilm().getTxtFieldNomRealisateur().getText());
             String valuesRealisateurPrenom = (viewHandler.getViewAddFilm().getTxtFieldPrenomRealisateur().getText());
-            String valuesDescription = (viewHandler.getViewAddFilm().getDescriptionFilm().getText());
             String valuesGenre = (viewHandler.getViewAddFilm().getTxtFieldGenre().getText());
             String valuesNationalite = (viewHandler.getViewAddFilm().getTxtFieldNationalite().getText());
 
@@ -83,6 +81,7 @@ public class ControllerAddFilm implements EventHandler<MouseEvent> {
            // System.out.println(valuesNomFilm + " " + valuesRealisateurNom  + " " + valuesActeurPrenom + "" +
                  //   " " + valuesActeurNom + " " + valuesRealisateurPrenom + " " + valuesDescription + " " + valuesGenre + " " + valuesNote+ " " + valuesAnnee );
             try {
+                int film_id = filmManager.insert(valuesNomFilm, valuesAnnee, valuesNote , valuesDescription);
                 int acteur_id = acteurManager.insert(valuesActeurNom,valuesActeurPrenom);
                 int genre_id = genreManager.insert(valuesGenre);
                 int nationalite_id = nationaliteManager.insert(valuesNationalite);
