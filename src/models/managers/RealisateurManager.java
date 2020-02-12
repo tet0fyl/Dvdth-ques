@@ -1,6 +1,7 @@
 package models.managers;
 import models.Realisateur;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 
 public class RealisateurManager extends BDDManager {
@@ -24,14 +25,15 @@ public class RealisateurManager extends BDDManager {
 
 public int insert(String valuesRealisateurNom, String valuesRealisateurPrenom) throws SQLException {
 
-        String query = "SELECT  * FROM realisateur ";
+        String query = "INSERT INTO realisateur (`Id_Realisateur`, `Nom_Realisateur`, `Prenom_Realisateur`) VALUES (null , '"+valuesRealisateurNom+ "' , '"+valuesRealisateurPrenom+ "')";
         this.start();
         st = db.createStatement();
-        int test =  st.executeUpdate(query);
-
-    System.out.println(test + "int");
+          st.executeUpdate(query, Statement.RETURN_GENERATED_KEYS);
+          rs = st.getGeneratedKeys();
+          rs.next();
+        int result =  Integer.parseInt(rs.getString(1));
         this.stop();
-        return 0;
+    return result;
     }
 
 

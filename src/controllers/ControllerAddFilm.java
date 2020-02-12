@@ -68,8 +68,8 @@ public class ControllerAddFilm implements EventHandler<MouseEvent> {
             //TODO: Choper tout les textes field
 
             String valuesNomFilm = (viewHandler.getViewAddFilm().getTxtFieldNomFilm().getText());
-            int valuesAnnee = parseInt(viewHandler.getViewAddFilm().getTxtFieldAnneeFilm().getText());
-            int valuesNote = viewHandler.getViewAddFilm().getChoiceBoxNote().getSelectionModel().getSelectedIndex();
+            //int valuesAnnee = parseInt(viewHandler.getViewAddFilm().getTxtFieldAnneeFilm().getText());
+            //int valuesNote = viewHandler.getViewAddFilm().getChoiceBoxNote().getSelectionModel().getSelectedIndex();
             String valuesActeurNom = (viewHandler.getViewAddFilm().getTxtFieldPrenomActeur().getText());
             String valuesActeurPrenom = (viewHandler.getViewAddFilm().getTxtFieldPrenomActeur().getText());
             String valuesRealisateurNom = (viewHandler.getViewAddFilm().getTxtFieldNomRealisateur().getText());
@@ -78,10 +78,11 @@ public class ControllerAddFilm implements EventHandler<MouseEvent> {
             String valuesGenre = (viewHandler.getViewAddFilm().getTxtFieldGenre().getText());
 
             //TODO: Faire requete
-            System.out.println(valuesNomFilm + " " + valuesRealisateurNom  + " " + valuesActeurPrenom + "" +
-                    " " + valuesActeurNom + " " + valuesRealisateurPrenom + " " + valuesDescription + " " + valuesGenre + " " + valuesNote+ " " + valuesAnnee );
+           // System.out.println(valuesNomFilm + " " + valuesRealisateurNom  + " " + valuesActeurPrenom + "" +
+                 //   " " + valuesActeurNom + " " + valuesRealisateurPrenom + " " + valuesDescription + " " + valuesGenre + " " + valuesNote+ " " + valuesAnnee );
             try {
-                realisateurManager.insert(valuesRealisateurNom,valuesRealisateurPrenom);
+                int real_id = realisateurManager.insert(valuesRealisateurNom,valuesRealisateurPrenom);
+                System.out.println(real_id);
             } catch (SQLException e) {
                 e.printStackTrace();
             }
