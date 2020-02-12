@@ -7,6 +7,8 @@ import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -14,6 +16,7 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
+import tools.Config;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -28,12 +31,11 @@ public class ViewAddFilm {
     private Button btnSubmit;
 
     /* ELEM DU FORMULAIRE */
-    private ChoiceBox boxRealisateur, choiceBoxNote;
+    private ChoiceBox choiceBoxNote;
     private TextArea descriptionFilm;
     private TextField txtFieldAnneeFilm, txtFieldNomFilm,txtFieldNationalite, txtFieldNomRealisateur,txtFieldPrenomRealisateur, txtFieldNomActeur, txtFieldPrenomActeur, txtFieldGenre;
     private VBox vBoxAddActeur, vBoxAddGenre;
-    private Button btnUploadFile;
-    private File selectedFile;
+    private Button btnUploadFile, btnAddGenre, btnAddActeur;
 
 
     public ViewAddFilm(FlowPane root) {
@@ -41,6 +43,16 @@ public class ViewAddFilm {
         vBoxContainer = new VBox();
         scrollPane = new ScrollPane();
         titleNouveaute = new Text("Insertion : ");
+        ImageView imgPlus = new ImageView(Config.urlIconePlus);
+        ImageView imgPlus2 = new ImageView(Config.urlIconePlus);
+        imgPlus.setFitWidth(8);
+        imgPlus2.setFitWidth(8);
+        imgPlus.setPreserveRatio(true);
+        imgPlus2.setPreserveRatio(true);
+        btnAddActeur = new Button();
+        btnAddActeur.setGraphic(imgPlus);
+        btnAddGenre = new Button();
+        btnAddGenre.setGraphic(imgPlus2);
         titleNouveaute.setFont(Font.font("Arial", FontWeight.BOLD,15));
         hBoxTitle.getChildren().add(titleNouveaute);
 
@@ -73,11 +85,11 @@ public class ViewAddFilm {
         root.getChildren().add(vBoxContainer);
     }
 
-    public void addNewActorField(){
+    public void addSuplementaireActorField(){
 
     }
 
-    public void addNewGenreField(){
+    public void addSuplementaireGenreField(){
 
     }
 
@@ -158,7 +170,7 @@ public class ViewAddFilm {
         txtFieldPrenomActeur.setPromptText("Prenom");
         hBoxFieldActeur.getChildren().addAll(txtFieldNomActeur,txtFieldPrenomActeur);
         vBoxAddActeur.getChildren().add(hBoxFieldActeur);
-        hBoxActeur.getChildren().addAll(lblActeur,txtFieldNomActeur,vBoxAddActeur);
+        hBoxActeur.getChildren().addAll(lblActeur,txtFieldNomActeur,vBoxAddActeur,btnAddActeur);
 
         /* CHAMPS GENRES */
         vBoxAddGenre = new VBox();
@@ -168,7 +180,7 @@ public class ViewAddFilm {
         lblGenre.setWrapText(true);
         txtFieldGenre = new TextField();
         vBoxAddGenre.getChildren().add(txtFieldGenre);
-        hBoxGenre.getChildren().addAll(lblGenre,vBoxAddGenre);
+        hBoxGenre.getChildren().addAll(lblGenre,vBoxAddGenre,btnAddGenre);
 
         /* IMAGE AFFICHE */
         HBox hBoxImgFilm = new HBox();
@@ -180,7 +192,7 @@ public class ViewAddFilm {
         hBoxImgFilm.getChildren().addAll(lblImgFil,btnUploadFile);
 
         /* BTN SUBMIT */
-        btnSubmit = new Button("envoyer");
+        btnSubmit = new Button("ENVOYER");
 
         vBoxFormulaire.getChildren().addAll(hBoxNomFilm,hBoxAnne,hBoxNote,hBoxRealisateur,hBoxActeur,hBoxDescription,hBoxGenre,hBoxImgFilm,btnSubmit);
         scrollPane.setContent(vBoxFormulaire);
@@ -219,10 +231,6 @@ public class ViewAddFilm {
 
     public Button getBtnSubmit() {
         return btnSubmit;
-    }
-
-    public ChoiceBox getBoxRealisateur() {
-        return boxRealisateur;
     }
 
     public ChoiceBox getChoiceBoxNote() {
@@ -275,5 +283,13 @@ public class ViewAddFilm {
 
     public Button getBtnUploadFile(){
         return btnUploadFile;
+    }
+
+    public Button getBtnAddGenre() {
+        return btnAddGenre;
+    }
+
+    public Button getBtnAddActeur() {
+        return btnAddActeur;
     }
 }
