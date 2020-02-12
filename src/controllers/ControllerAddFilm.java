@@ -42,6 +42,8 @@ public class ControllerAddFilm implements EventHandler<MouseEvent> {
         this.genreManager= new GenreManager();
         this.acteurManager= new ActeurManager();
         this.nationaliteManager= new NationaliteManager();
+        this.filmManager= new FilmManager();
+
         this.viewHandler.getViewAddFilm().setEvent(this);
 
         try {
@@ -81,12 +83,16 @@ public class ControllerAddFilm implements EventHandler<MouseEvent> {
            // System.out.println(valuesNomFilm + " " + valuesRealisateurNom  + " " + valuesActeurPrenom + "" +
                  //   " " + valuesActeurNom + " " + valuesRealisateurPrenom + " " + valuesDescription + " " + valuesGenre + " " + valuesNote+ " " + valuesAnnee );
             try {
-                int film_id = filmManager.insert(valuesNomFilm, valuesAnnee, valuesNote , valuesDescription);
-                int acteur_id = acteurManager.insert(valuesActeurNom,valuesActeurPrenom);
-                int genre_id = genreManager.insert(valuesGenre);
-                int nationalite_id = nationaliteManager.insert(valuesNationalite);
-                int real_id = realisateurManager.insert(valuesRealisateurNom,valuesRealisateurPrenom);
-                //System.out.println(real_id,);
+
+                 int acteur_id = acteurManager.insert(valuesActeurNom,valuesActeurPrenom);
+                 int genre_id = genreManager.insert(valuesGenre);
+                 int nationalite_id = nationaliteManager.insert(valuesNationalite);
+                 int real_id = realisateurManager.insert(valuesRealisateurNom,valuesRealisateurPrenom);
+                 int film_id = filmManager.insert(valuesNomFilm, valuesAnnee, valuesNote , valuesDescription,selectedFile.getName(), real_id, nationalite_id);
+                 filmManager.insertFilmActeur(film_id, acteur_id);
+                 filmManager.insertFilmGenre(film_id, genre_id);
+
+
             } catch (SQLException e) {
                 e.printStackTrace();
             }
@@ -106,7 +112,7 @@ public class ControllerAddFilm implements EventHandler<MouseEvent> {
                 try {
                     Files.copy(FileSystems.getDefault().getPath(selectedFile.getPath()),
                             (Paths.get(Paths.get("").toAbsolutePath().toString() + "/src/" + Config.urlFilmImg + "/" + selectedFile.getName())),
-                            StandardCopyOption.COPY_ATTRIBUTES);
+                            StandardCopyOption.REPLACE_EXISTING);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }

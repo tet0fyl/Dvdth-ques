@@ -192,9 +192,8 @@ public class FilmManager extends BDDManager{
         System.out.println(query);
         this.stop();
     }
-    public int insert(String valuesNomFilm, int valuesAnnee, int valuesNote, String valuesDescription ) throws SQLException {
-        String query = "INSERT INTO `film`(`Id_Film`, `Nom_Film`, `Annee_Film`, `Note_Film`, `Content_Film`, `Img_Film`, `Realisateur_id`, `Nationalite_id`) VALUES " +
-                "(null , '"+valuesNomFilm+ "' , "+valuesAnnee+ ", "+valuesNote+ " , '"+valuesDescription+ "', null, null )";
+    public int insert(String valuesNomFilm, int valuesAnnee, int valuesNote, String valuesDescription,String img, int real_id, int nationalite_id ) throws SQLException {
+        String query = "INSERT INTO `film`(`Id_Film`, `Nom_Film`, `Annee_Film`, `Note_Film`, `Content_Film`, `Img_Film`, `Realisateur_id`, `Nationalite_id`) VALUES (null , '"+valuesNomFilm+ "' , "+valuesAnnee+ ", "+valuesNote+ " , '"+valuesDescription+ "', '"+img+ "',"+real_id+","+nationalite_id+" )";
         this.start();
         st = db.createStatement();
         st.executeUpdate(query, Statement.RETURN_GENERATED_KEYS);
@@ -203,6 +202,27 @@ public class FilmManager extends BDDManager{
         int result =  Integer.parseInt(rs.getString(1));
         this.stop();
         return result;
+    }
+
+    public void insertFilmActeur(int film_id, int acteur_id) throws SQLException {
+        String query = "INSERT INTO `film_acteur`(`Film_id`, `Acteur_id`) VALUES ("+film_id+","+acteur_id+")";
+        this.start();
+        st = db.createStatement();
+        st.executeUpdate(query);
+
+
+        this.stop();
+
+    }
+ public void insertFilmGenre(int film_id, int genre_id) throws SQLException {
+        String query = "INSERT INTO `film_acteur`(`Film_id`, `Acteur_id`) VALUES ("+film_id+","+genre_id+")";
+        this.start();
+        st = db.createStatement();
+        st.executeUpdate(query);
+
+
+        this.stop();
+
     }
 
 
