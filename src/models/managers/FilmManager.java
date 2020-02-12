@@ -215,7 +215,7 @@ public class FilmManager extends BDDManager{
 
     }
  public void insertFilmGenre(int film_id, int genre_id) throws SQLException {
-        String query = "INSERT INTO `film_acteur`(`Film_id`, `Acteur_id`) VALUES ("+film_id+","+genre_id+")";
+        String query = "INSERT INTO `film_genre`(`Film_id`, `genre_id`) VALUES ("+film_id+","+genre_id+")";
         this.start();
         st = db.createStatement();
         st.executeUpdate(query);
