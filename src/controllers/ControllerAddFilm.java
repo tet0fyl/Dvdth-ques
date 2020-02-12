@@ -2,13 +2,26 @@ package controllers;
 
 import javafx.event.EventHandler;
 import javafx.scene.input.MouseEvent;
+import javafx.stage.FileChooser;
+import models.Acteur;
+import models.Genre;
+import models.Nationalite;
+import models.Realisateur;
 import models.managers.ActeurManager;
 import models.managers.NationaliteManager;
 import models.managers.GenreManager;
 import models.managers.RealisateurManager;
+import tools.Config;
 import views.ViewHandler;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.FileSystems;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 public class ControllerAddFilm implements EventHandler<MouseEvent> {
     private RealisateurManager realisateurManager;
@@ -16,9 +29,13 @@ public class ControllerAddFilm implements EventHandler<MouseEvent> {
     private ActeurManager acteurManager;
     private NationaliteManager nationaliteManager;
     private ViewHandler viewHandler;
+    private File selectedFile;
+    private ArrayList<Realisateur> dataRealisateur;
+    private ArrayList<Acteur> dataActeurs;
+    private ArrayList<Genre> dataGenres;
+    private ArrayList<Nationalite> dataNationalite;
 
     public ControllerAddFilm(ViewHandler viewHandler) {
-
         this.viewHandler = viewHandler;
         this.realisateurManager= new RealisateurManager();
         this.genreManager= new GenreManager();
@@ -26,14 +43,11 @@ public class ControllerAddFilm implements EventHandler<MouseEvent> {
         this.nationaliteManager= new NationaliteManager();
         this.viewHandler.getViewAddFilm().setEvent(this);
 
-        // TODO: initialiser les manager
         try {
-            //TODO: updater la view avec les valeurs
-
-            this.viewHandler.getViewAddFilm().updateRealisateurField(this.realisateurManager.getAll());
-            this.viewHandler.getViewAddFilm().updateGenreField(this.genreManager.getAll());
-            this.viewHandler.getViewAddFilm().updateActeurField(this.acteurManager.getAll());
-            this.viewHandler.getViewAddFilm().updateNationaliteField(this.nationaliteManager.getAll());
+            dataRealisateur = realisateurManager.getAll();
+            dataActeurs = acteurManager.getAll();
+            dataGenres = genreManager.getAll();
+            dataNationalite = nationaliteManager.getAll();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -42,27 +56,44 @@ public class ControllerAddFilm implements EventHandler<MouseEvent> {
 
     @Override
     public void handle(MouseEvent mouseEvent) {
-        if(mouseEvent.getSource().equals(viewHandler.getViewAddFilm().getBtn())){
+        if(mouseEvent.getSource().equals(viewHandler.getViewAddFilm().getBtnSubmit())) {
             //TODO: Choper tout les textes field
 
-                String valeurNomFilm = (viewHandler.getViewAddFilm().getNomFilm().getText());
-                String valeurimage = (viewHandler.getViewAddFilm().getImage().getText());
-                String valeurGenre = (viewHandler.getViewAddFilm().getGenre().getText());
-                String valeurPrenomActeur = (viewHandler.getViewAddFilm().getPrenomActeur().getText());
-                String valeurNomacteur = (viewHandler.getViewAddFilm().getNomActeur().getText());
-                String valeurprenomReal = (viewHandler.getViewAddFilm().getPrenomREAL().getText());
-                String valeurRealisateur = (viewHandler.getViewAddFilm().getNomREAL().getText());
-                String valeurNationalite = (viewHandler.getViewAddFilm().getNationalite().getText());
-                String valeurDescrip = (viewHandler.getViewAddFilm().getDescriptionFilm().getText());
-                int valeurAF = Integer.parseInt(viewHandler.getViewAddFilm().getAnneeFilm().getText());
-                int valeurNote = Integer.parseInt(viewHandler.getViewAddFilm().getNoteFilm().getText());
-
-
+            String valuesNomFilm = (viewHandler.getViewAddFilm().getTxtFieldNomFilm().getText());
+            int valuesAnnee = Integer.parseInt(viewHandler.getViewAddFilm().getTxtFieldAnneeFilm().getText());
+            //int valuesNote = viewHandler.getViewAddFilm().getChoiceBoxNote().getSelectionModel().getSelectedIndex();
+            String valuesActeurNom = (viewHandler.getViewAddFilm().getTxtFieldPrenomActeur().getText());
+            String valuesActeurPrenom = (viewHandler.getViewAddFilm().getTxtFieldPrenomActeur().getText());
+            String valuesRealisateurNom = (viewHandler.getViewAddFilm().getTxtFieldNomRealisateur().getText());
+            String valuesRealisateurPrenom = (viewHandler.getViewAddFilm().getTxtFieldPrenomRealisateur().getText());
+            String valuesDescription = (viewHandler.getViewAddFilm().getDescriptionFilm().getText());
+            String valuesGenre = (viewHandler.getViewAddFilm().getTxtFieldGenre().getText());
 
             //TODO: Faire requete
+            System.out.println(valuesNomFilm + " " + valuesRealisateurNom);
+
+        }
+        if(mouseEvent.getSource().equals(viewHandler.getViewAddFilm().getBtnUploadFile())){
+                FileChooser fileChooser = new FileChooser();
+                fileChooser.setTitle("Open Resource File");
+
+                selectedFile = fileChooser.showOpenDialog(viewHandler.getPrimaryStage());
+
+            if(selectedFile != null){
+                try {
+                    Files.copy(FileSystems.getDefault().getPath(selectedFile.getPath()),
+                            (Paths.get(Paths.get("").toAbsolutePath().toString() + "/src/" + Config.urlFilmImg + "/" + selectedFile.getName())),
+                            StandardCopyOption.COPY_ATTRIBUTES);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+
+
+
 
 
 
         }
-    }
 }

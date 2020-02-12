@@ -5,10 +5,7 @@ import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
-import javafx.stage.Popup;
-import javafx.stage.PopupWindow;
-import javafx.stage.Stage;
-import javafx.stage.Window;
+import javafx.stage.*;
 import models.managers.RealisateurManager;
 import models.managers.FilmManager;
 import tools.Config;
@@ -31,6 +28,7 @@ public class ViewHandler extends Application {
     private RealisateurManager realisateurManager;
     private FlowPane root;
     private Scene scene;
+    private FileChooser fileChooser = new FileChooser();
 
     @Override
     public void start(Stage primaryStage) {
@@ -140,4 +138,7 @@ public class ViewHandler extends Application {
         return  viewSingleFilm;
     }
 
+    public Stage getPrimaryStage(){
+        return primaryStage;
+    }
 }

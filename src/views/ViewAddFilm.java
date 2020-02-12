@@ -13,11 +13,9 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
-import models.Realisateur;
-import models.Genre;
-import models.Acteur;
-import models.Nationalite;
+import javafx.stage.FileChooser;
 
+import java.io.File;
 import java.util.ArrayList;
 
 public class ViewAddFilm {
@@ -27,23 +25,15 @@ public class ViewAddFilm {
     private ScrollPane scrollPane;
     private Text titleNouveaute;
     private HBox hBoxTitle = new HBox();
-    private Button btn;
-    //TODO: Sortir toute les elements
-    private TextField anneeFilm;
-    private TextField nomFilm;
-    private TextField noteFilm;
+    private Button btnSubmit;
+
+    /* ELEM DU FORMULAIRE */
+    private ChoiceBox boxRealisateur, choiceBoxNote;
     private TextArea descriptionFilm;
-    private ChoiceBox boxRealisateur;
-    private ChoiceBox boxGenre;
-    private ChoiceBox boxActeur;
-    private ChoiceBox boxNationalite;
-    private TextField Nationalite;
-    private TextField nomREAL;
-    private TextField prenomREAL;
-    private TextField NomActeur;
-    private TextField PrenomActeur;
-    private TextField Genre;
-    private TextField image;
+    private TextField txtFieldAnneeFilm, txtFieldNomFilm,txtFieldNationalite, txtFieldNomRealisateur,txtFieldPrenomRealisateur, txtFieldNomActeur, txtFieldPrenomActeur, txtFieldGenre;
+    private VBox vBoxAddActeur, vBoxAddGenre;
+    private Button btnUploadFile;
+    private File selectedFile;
 
 
     public ViewAddFilm(FlowPane root) {
@@ -74,7 +64,6 @@ public class ViewAddFilm {
 
         initDuFormulaire();
 
-
     }
 
     public void clearAndInitRoot(ViewHeader viewHeader) {
@@ -84,232 +73,207 @@ public class ViewAddFilm {
         root.getChildren().add(vBoxContainer);
     }
 
+    public void addNewActorField(){
 
-    public void updateRealisateurField(ArrayList<Realisateur> listReal){
-        ObservableList<Realisateur> list = FXCollections.observableArrayList(listReal);
-        boxRealisateur.setItems(list);
     }
 
-    public void updateGenreField(ArrayList<Genre> listGenre){
-        ObservableList<Genre> list = FXCollections.observableArrayList(listGenre);
-        boxGenre.setItems(list);
-    }
+    public void addNewGenreField(){
 
-    public void updateActeurField(ArrayList<Acteur> listActeur){
-        ObservableList<Acteur> list = FXCollections.observableArrayList(listActeur);
-        boxActeur.setItems(list);
-    }
-    public void updateNationaliteField(ArrayList<Nationalite> listNationalite){
-        ObservableList<Nationalite> list = FXCollections.observableArrayList(listNationalite);
-        boxNationalite.setItems(list);
     }
 
     public void initDuFormulaire(){
 
-        VBox vBox = new VBox();
-        vBox.setSpacing(10);
-        vBox.setPadding(new Insets(10,5,5,5));
-        VBox vBoxDetails = new VBox();
-        vBoxDetails.setSpacing(15);
-        vBoxDetails.setPadding(new Insets(10,5,5,5));
-        VBox vBoxSaisi = new VBox();
-        vBoxSaisi.setSpacing(10);
-        vBoxSaisi.setPadding(new Insets(10,5,5,5));
-        HBox hBox = new HBox();
-        vBox.setMaxWidth(300);
-        vBox.setAlignment(Pos.CENTER);
-        Label txtTitle = new Label("NOM DU FILM:");
-        txtTitle.setFont(Font.font(15));
-        txtTitle.setWrapText(true);
-        nomFilm = new TextField();
+        VBox vBoxFormulaire = new VBox();
 
+        /* CHAMPS NOM FILM */
+        HBox hBoxNomFilm = new HBox();
+        Label lblNomFilm = new Label("NOM DU FILM:");
+        lblNomFilm.setFont(Font.font(15));
+        lblNomFilm.setWrapText(true);
+        txtFieldNomFilm = new TextField();
+        hBoxNomFilm.getChildren().addAll(lblNomFilm, txtFieldNomFilm);
 
-        Label txtAnnee = new Label("ANNEE DU FILM:");
-        txtAnnee.setFont(Font.font(15));
-        txtAnnee.setWrapText(true);
-        anneeFilm = new TextField();
+        /* CHAMPS ANNEE */
+        HBox hBoxAnne = new HBox();
+        Label lblAnnee = new Label("ANNEE DU FILM:");
+        lblAnnee.setFont(Font.font(15));
+        lblAnnee.setWrapText(true);
+        txtFieldAnneeFilm = new TextField();
+        hBoxAnne.getChildren().addAll(lblAnnee, txtFieldAnneeFilm);
 
+        /* CHAMPS NOTE */
+        HBox hBoxNote = new HBox();
+        Label lblNote = new Label("NOTE:");
+        lblNote.setFont(Font.font(15));
+        lblNote.setWrapText(true);
+        ArrayList<Integer>listNote = new ArrayList<Integer>();
+        listNote.add(0);
+        listNote.add(1);
+        listNote.add(2);
+        listNote.add(3);
+        listNote.add(4);
+        listNote.add(5);
+        ObservableList<Integer> list = FXCollections.observableArrayList(listNote);
+        choiceBoxNote = new ChoiceBox();
+        choiceBoxNote.setItems(list);
+        hBoxNote.getChildren().addAll(lblNote, choiceBoxNote);
 
-        Label txtNote = new Label("NOTE:");
-        txtNote.setFont(Font.font(15));
-        txtNote.setWrapText(true);
-        noteFilm = new TextField();
-
-
-        Label txtDesc = new Label("DESCRIPTION:");
-        txtDesc.setFont(Font.font(15));
-        txtDesc.setWrapText(true);
+        /* CHAMPS DESCRIPTION */
+        HBox hBoxDescription = new HBox();
+        Label lblDescription = new Label("DESCRIPTION:");
+        lblDescription.setFont(Font.font(15));
+        lblDescription.setWrapText(true);
         descriptionFilm = new TextArea();
-        descriptionFilm.setLayoutX(60);
-        descriptionFilm.setLayoutY(20);
+        hBoxDescription.getChildren().addAll(lblDescription,descriptionFilm);
 
+        /* CHAMPS NATIONALITE */
+        HBox hBoxNationalite = new HBox();
+        Label lblNationalite = new Label("NATIONALITE:");
+        lblNationalite.setFont(Font.font(15));
+        lblNationalite.setWrapText(true);
+        txtFieldNationalite = new TextField();
+        hBoxNationalite.getChildren().addAll(lblNationalite,txtFieldNationalite);
 
-        Label ChoixNationalite = new Label("NATIONALITE EXISTANTE:");
-        ChoixNationalite.setFont(Font.font(15));
-        ChoixNationalite.setWrapText(true);
-        boxNationalite = new ChoiceBox();
+        /* CHAMPS REALISATEUR */
+        HBox hBoxRealisateur = new HBox();
+        Label lblRealisateur = new Label("REALISATEUR:");
+        lblRealisateur.setFont(Font.font(15));
+        lblRealisateur.setWrapText(true);
+        txtFieldNomRealisateur = new TextField();
+        txtFieldNomRealisateur.setPromptText("Nom");
+        txtFieldPrenomRealisateur = new TextField();
+        txtFieldPrenomRealisateur.setPromptText("Prénom");
+        hBoxRealisateur.getChildren().addAll(lblRealisateur,txtFieldNomRealisateur,txtFieldPrenomRealisateur);
 
-        Label txtNationalte = new Label("NATIONALITE:");
-        txtNationalte.setFont(Font.font(15));
-        txtNationalte.setWrapText(true);
-        Nationalite = new TextField();
+        /* CHAMPS ACTEURS */
+        vBoxAddActeur = new VBox();
+        HBox hBoxFieldActeur = new HBox();
+        HBox hBoxActeur = new HBox();
+        Label lblActeur = new Label("ACTEUR:");
+        lblActeur.setFont(Font.font(15));
+        lblActeur.setWrapText(true);
+        txtFieldNomActeur = new TextField();
+        txtFieldNomActeur.setPromptText("Nom");
+        txtFieldPrenomActeur = new TextField();
+        txtFieldPrenomActeur.setPromptText("Prenom");
+        hBoxFieldActeur.getChildren().addAll(txtFieldNomActeur,txtFieldPrenomActeur);
+        vBoxAddActeur.getChildren().add(hBoxFieldActeur);
+        hBoxActeur.getChildren().addAll(lblActeur,txtFieldNomActeur,vBoxAddActeur);
 
-        Label ChoixReal = new Label("REALISATEUR EXISTANT:");
-        ChoixReal.setFont(Font.font(15));
-        ChoixReal.setWrapText(true);
-        boxRealisateur = new ChoiceBox();
+        /* CHAMPS GENRES */
+        vBoxAddGenre = new VBox();
+        HBox hBoxGenre = new HBox();
+        Label lblGenre = new Label(" GENRE:");
+        lblGenre.setFont(Font.font(15));
+        lblGenre.setWrapText(true);
+        txtFieldGenre = new TextField();
+        vBoxAddGenre.getChildren().add(txtFieldGenre);
+        hBoxGenre.getChildren().addAll(lblGenre,vBoxAddGenre);
 
-        Label txtNomRealis = new Label("NOM REALISATEUR:");
-        txtNomRealis.setFont(Font.font(15));
-        txtNomRealis.setWrapText(true);
-        nomREAL = new TextField();
+        /* IMAGE AFFICHE */
+        HBox hBoxImgFilm = new HBox();
+        Label lblImgFil = new Label("ImageFilm");
+        lblGenre.setFont(Font.font(15));
+        lblGenre.setWrapText(true);
+        //selectedFile = new File();
+        btnUploadFile = new Button("Upload File");
+        hBoxImgFilm.getChildren().addAll(lblImgFil,btnUploadFile);
 
+        /* BTN SUBMIT */
+        btnSubmit = new Button("envoyer");
 
-        Label txtPrenom = new Label("PRENOM REALISATEUR:");
-        txtPrenom.setFont(Font.font(15));
-        txtPrenom.setWrapText(true);
-        prenomREAL = new TextField();
-
-        Label ChoixActeur = new Label("ACTEUR EXISTANT:");
-        ChoixActeur.setFont(Font.font(15));
-        ChoixActeur.setWrapText(true);
-        boxActeur = new ChoiceBox();
-
-
-        Label txtNomActeur = new Label("NOM ACTEUR:");
-        txtNomActeur.setFont(Font.font(15));
-        txtNomActeur.setWrapText(true);
-        NomActeur = new TextField();
-
-
-        Label txtPrenomActeur = new Label("PRENOM ACTEUR:");
-        txtPrenomActeur.setFont(Font.font(15));
-        txtPrenomActeur.setWrapText(true);
-        PrenomActeur = new TextField();
-
-
-        Label ChoixGenre = new Label("GENRE EXISTANT:");
-        ChoixGenre.setFont(Font.font(15));
-        ChoixGenre.setWrapText(true);
-        boxGenre = new ChoiceBox();
-
-        Label txtGenre = new Label(" GENRE:");
-        txtGenre.setFont(Font.font(15));
-        txtGenre.setWrapText(true);
-        Genre = new TextField();
-
-
-        Label txtImage = new Label("IMAGE DU FILM:");
-        txtImage.setFont(Font.font(15));
-        txtImage.setWrapText(true);
-        image = new TextField();
-
-
-
-
-        btn = new Button("envoyer");
-
-
-
-        vBoxDetails.getChildren().addAll(txtTitle, txtAnnee, txtNote, ChoixNationalite, txtNationalte, ChoixReal, txtNomRealis,
-                txtPrenom, ChoixActeur, txtNomActeur, txtPrenomActeur, ChoixGenre, txtGenre, txtImage, txtDesc);
-        vBoxSaisi.getChildren().addAll(nomFilm, anneeFilm, noteFilm, boxNationalite, Nationalite, boxRealisateur, nomREAL,
-                prenomREAL, boxActeur, NomActeur, PrenomActeur, boxGenre, Genre, image, descriptionFilm, btn);
-        hBox.getChildren().addAll(vBoxDetails,vBoxSaisi);
-        vBox.getChildren().add(hBox);
-        vBox.maxWidthProperty().bind(root.widthProperty());
-        vBox.minWidthProperty().bind(root.widthProperty());
-        hBoxCotainerFormulaire.getChildren().add(vBox);
-//        btn.setOnAction(event -> {
-//
-//            String valeurimage = image.getText();
-//            String valeurGenre = Genre.getText();
-//            String valeurPrenomActeur = PrenomActeur.getText();
-//            String valeurNomacteur = NomActeur.getText();
-//            String valeurprenomReal = prenomREAL.getText();
-//            String valeurRealisateur = nomREAL.getText();
-//            String valeurNationalite = Nationalite.getText();
-//            String valeurDescrip = descriptionFilm.getText();
-//            String valeurNF = nomFilm.getText();
-//
-//            if (noteFilm.getText()!= null) {
-//                int valeurNote = Integer.parseInt(noteFilm.getText());
-//            }
-
-
-      //  }
-        //);
-
+        vBoxFormulaire.getChildren().addAll(hBoxNomFilm,hBoxAnne,hBoxNote,hBoxRealisateur,hBoxActeur,hBoxDescription,hBoxGenre,hBoxImgFilm,btnSubmit);
+        scrollPane.setContent(vBoxFormulaire);
 
     }
 
+    public void setEvent(ControllerAddFilm controllerAddFilm){
+        btnUploadFile.setOnMouseClicked(controllerAddFilm);
+        btnSubmit.setOnMouseClicked(controllerAddFilm);
+    }
 
-        public void setEvent(ControllerAddFilm controllerAddFilm){
-                btn.setOnMouseClicked(controllerAddFilm);
-        }
     //TODO: mettre tout les getters ici
     public FlowPane getRoot(){
         return root;
     }
 
-    public Button getBtn(){
-        return btn;
+    public VBox getvBoxContainer() {
+        return vBoxContainer;
     }
 
-
-    public TextField getAnneeFilm(){
-        return anneeFilm;
+    public FlowPane gethBoxCotainerFormulaire() {
+        return hBoxCotainerFormulaire;
     }
 
-    public TextField getImage() {
-        return image;
+    public ScrollPane getScrollPane() {
+        return scrollPane;
     }
 
-    public TextField getNomFilm() {
-        return nomFilm;
+    public Text getTitleNouveaute() {
+        return titleNouveaute;
     }
 
-    public TextField getNoteFilm() {
-        return noteFilm;
+    public HBox gethBoxTitle() {
+        return hBoxTitle;
     }
 
-    public TextArea getDescriptionFilm() {
-        return descriptionFilm;
+    public Button getBtnSubmit() {
+        return btnSubmit;
     }
 
     public ChoiceBox getBoxRealisateur() {
         return boxRealisateur;
     }
 
-    public ChoiceBox getBoxGenre() {
-        return boxGenre;
+    public ChoiceBox getChoiceBoxNote() {
+        return choiceBoxNote;
     }
 
-    public ChoiceBox getBoxActeur() {
-        return boxActeur;
+    public TextArea getDescriptionFilm() {
+        return descriptionFilm;
     }
 
-    public TextField getNationalite() {
-        return Nationalite;
+    public TextField getTxtFieldAnneeFilm() {
+        return txtFieldAnneeFilm;
     }
 
-    public TextField getNomREAL() {
-        return nomREAL;
+    public TextField getTxtFieldNomFilm() {
+        return txtFieldNomFilm;
     }
 
-    public TextField getPrenomREAL() {
-        return prenomREAL;
+    public TextField getTxtFieldNationalite() {
+        return txtFieldNationalite;
     }
 
-    public TextField getNomActeur() {
-        return NomActeur;
+    public TextField getTxtFieldNomRealisateur() {
+        return txtFieldNomRealisateur;
     }
 
-    public TextField getPrenomActeur() {
-        return PrenomActeur;
+    public TextField getTxtFieldPrenomRealisateur() {
+        return txtFieldPrenomRealisateur;
     }
 
-    public TextField getGenre() {
-        return Genre;
+    public TextField getTxtFieldNomActeur() {
+        return txtFieldNomActeur;
+    }
+
+    public TextField getTxtFieldPrenomActeur() {
+        return txtFieldPrenomActeur;
+    }
+
+    public TextField getTxtFieldGenre() {
+        return txtFieldGenre;
+    }
+
+    public VBox getvBoxAddActeur() {
+        return vBoxAddActeur;
+    }
+
+    public VBox getvBoxAddGenre() {
+        return vBoxAddGenre;
+    }
+
+    public Button getBtnUploadFile(){
+        return btnUploadFile;
     }
 }
