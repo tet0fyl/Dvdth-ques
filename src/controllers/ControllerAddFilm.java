@@ -37,6 +37,7 @@ public class ControllerAddFilm implements EventHandler<MouseEvent> {
     private ArrayList<Genre> dataGenres;
     private ArrayList<Nationalite> dataNationalite;
 
+
     public ControllerAddFilm(ViewHandler viewHandler) {
         this.viewHandler = viewHandler;
         this.realisateurManager= new RealisateurManager();
@@ -76,18 +77,26 @@ public class ControllerAddFilm implements EventHandler<MouseEvent> {
             String valuesRealisateurPrenom = (viewHandler.getViewAddFilm().getTxtFieldPrenomRealisateur().getText());
             String valuesDescription = (viewHandler.getViewAddFilm().getDescriptionFilm().getText());
             String valuesGenre = (viewHandler.getViewAddFilm().getTxtFieldGenre().getText());
+            String valuesNationalite = (viewHandler.getViewAddFilm().getTxtFieldNationalite().getText());
 
             //TODO: Faire requete
            // System.out.println(valuesNomFilm + " " + valuesRealisateurNom  + " " + valuesActeurPrenom + "" +
                  //   " " + valuesActeurNom + " " + valuesRealisateurPrenom + " " + valuesDescription + " " + valuesGenre + " " + valuesNote+ " " + valuesAnnee );
             try {
+                int acteur_id = acteurManager.insert(valuesActeurNom,valuesActeurPrenom);
+                int genre_id = genreManager.insert(valuesGenre);
+                int nationalite_id = nationaliteManager.insert(valuesNationalite);
                 int real_id = realisateurManager.insert(valuesRealisateurNom,valuesRealisateurPrenom);
-                System.out.println(real_id);
+                //System.out.println(real_id,);
             } catch (SQLException e) {
                 e.printStackTrace();
             }
 
         }
+
+
+
+
         if(mouseEvent.getSource().equals(viewHandler.getViewAddFilm().getBtnUploadFile())){
                 FileChooser fileChooser = new FileChooser();
                 fileChooser.setTitle("Open Resource File");

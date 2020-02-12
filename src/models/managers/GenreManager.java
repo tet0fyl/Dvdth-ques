@@ -1,6 +1,7 @@
 package models.managers;
 import models.Genre;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 
 
@@ -22,6 +23,19 @@ public class GenreManager extends BDDManager{
             }
             this.stop();
             return listOfGenre;
+        }
+
+        public int insert(String valuesGenre) throws SQLException {
+
+            String query = "INSERT INTO `genre`(`Id_Genre`, `Libelle_Genre`) VALUES (null , '"+valuesGenre+ "')";
+            this.start();
+            st = db.createStatement();
+            st.executeUpdate(query, Statement.RETURN_GENERATED_KEYS);
+            rs = st.getGeneratedKeys();
+            rs.next();
+            int result =  Integer.parseInt(rs.getString(1));
+            this.stop();
+            return result;
         }
 
 

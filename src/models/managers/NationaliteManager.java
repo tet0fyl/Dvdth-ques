@@ -1,6 +1,7 @@
 package models.managers;
 import models.Nationalite;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 
 public class NationaliteManager  extends BDDManager {
@@ -21,6 +22,19 @@ public class NationaliteManager  extends BDDManager {
         this.stop();
         return listOfNationalite;
     }
+    public int insert(String valuesNationalite) throws SQLException {
+
+        String query = "INSERT INTO `nationalite`(`Id_Nationalite`, `Libelle_Nationalite`) VALUES (null , '"+valuesNationalite+ "')";
+        this.start();
+        st = db.createStatement();
+        st.executeUpdate(query, Statement.RETURN_GENERATED_KEYS);
+        rs = st.getGeneratedKeys();
+        rs.next();
+        int result =  Integer.parseInt(rs.getString(1));
+        this.stop();
+        return result;
+    }
+
 
 
 }
