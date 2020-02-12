@@ -22,6 +22,18 @@ public class RealisateurManager extends BDDManager {
         return listOfRealisateur;
     }
 
+public int insert(String valuesRealisateurNom, String valuesRealisateurPrenom) throws SQLException {
+
+        String query = "SELECT  * FROM realisateur ";
+        this.start();
+        st = db.createStatement();
+        int test =  st.executeUpdate(query);
+
+    System.out.println(test + "int");
+        this.stop();
+        return 0;
+    }
+
 
 }
 
