@@ -120,6 +120,8 @@ public class ViewList {
             VBox vBoxDetails = new VBox(); // Conteneur Nom, Annee, Content, Realisateur,...
             hBoxTile.setFocusTraversable(true);
             vBoxDetails.setFocusTraversable(true);
+            vBoxDetails.minWidthProperty().bind(Bindings.divide(root.widthProperty(),2));
+            vBoxDetails.maxWidthProperty().bind(Bindings.divide(root.widthProperty(),2));
 
             /* IMG */
             ImageView img = new ImageView(Config.urlFilmImg + film.getImg());
@@ -164,6 +166,7 @@ public class ViewList {
             /* CONTENT */
             Label txtContent = new Label(film.getContent((byte) 100));
             txtContent.setWrapText(true);
+
 
             /* REALISATEUR */
             HBox vBoxRealisateur = new HBox();
@@ -214,14 +217,9 @@ public class ViewList {
         }
     }
 
-    public void displayPopUpMessage(String message){
-        lblPopUp.setText(message);
-        grpForPopup.getChildren().add(vBoxPopUpMain);
-    }
 
-    public void HidePopUpMessage(){
-        grpForPopup.getChildren().remove(vBoxPopUpMain);
-    }
+
+
 
     public TextField getTxtFieldSearch(){
         return txtFieldSearch;
