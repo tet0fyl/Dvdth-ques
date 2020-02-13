@@ -197,6 +197,7 @@ public class ViewAddFilm {
             choiceBoxNote.getSelectionModel().select(film.getNote());
             descriptionFilm.setText(film.getContent());
             txtFieldNationalite.setText(film.getNationalite().getLibelle());
+            txtFieldNomRealisateur.setText(film.getRealisateur().getNom());
 
 
         }
