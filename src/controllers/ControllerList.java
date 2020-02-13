@@ -29,6 +29,7 @@ public class ControllerList implements EventHandler<InputEvent> {
             e.printStackTrace();
         }
         this.viewHandler.getViewList().setEvent(this);
+        this.viewHandler.getViewList().displayPopUpMessage("ATTENTION");
     }
 
 
