@@ -198,6 +198,15 @@ public class ViewAddFilm {
             descriptionFilm.setText(film.getContent());
             txtFieldNationalite.setText(film.getNationalite().getLibelle());
             txtFieldNomRealisateur.setText(film.getRealisateur().getNom());
+            txtFieldPrenomRealisateur.setText(film.getRealisateur().getPrenom());
+            txtFieldNomActeur.setText(film.getActeurs().get(0).getNom());
+            txtFieldPrenomActeur.setText(film.getActeurs().get(0).getPrenom());
+            txtFieldGenre.setText(film.getGenres().get(0).getLibelle());
+            insertRenduImage(Config.urlFilmImg+"/"+film.getImg());
+
+
+
+
 
 
         }
@@ -233,6 +242,13 @@ public class ViewAddFilm {
         return hBox;
     }
 
+    public void insertRenduImage(String url){
+        ImageView image = new ImageView(url);
+        image.setPreserveRatio(true);
+        image.setFitWidth(150);
+        vBoxRenduImage.getChildren().add(image);
+
+    }
 
     //TODO: mettre tout les getters ici
     public FlowPane getRoot(){
