@@ -80,23 +80,8 @@ public class ViewSingleFilm {
             img.fitWidthProperty().bind(Bindings.divide(root.widthProperty(),5));
 
             /* BARRE DE MODIF */
-            ImageView imageViewDelete = new ImageView(imageDelete);
-            imageViewDelete.setPreserveRatio(true);
-            imageViewDelete.setFitWidth(10);
-            ImageView imageViewModifiy = new ImageView(imgModify);
-            imageViewModifiy.setPreserveRatio(true);
-            imageViewModifiy.setFitWidth(10);
-            Button btnDelete = new Button();
-            btnDelete.setGraphic(imageViewDelete);
-            Button btnModify = new Button();
-            btnModify.setGraphic(imageViewModifiy);
-            btnDelete.setId("del-" + film.getId());
-            btnModify.setId("mod-" + film.getId());
             HBox hBoxBarreDeModif = new HBox();
-            hBoxBarreDeModif.getChildren().addAll(btnModify,btnDelete);
             img.setPreserveRatio(true);
-            btnDelete.setOnMouseClicked(controllerSingleFilm);
-            btnModify.setOnMouseClicked(controllerSingleFilm);
 
             /* TITRE */
             Label txtTitle = new Label(film.getNom());

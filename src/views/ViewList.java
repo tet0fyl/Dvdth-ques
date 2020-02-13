@@ -4,6 +4,7 @@ import controllers.ControllerList;
 import javafx.beans.binding.Bindings;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Group;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
@@ -13,7 +14,6 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
-import javafx.stage.PopupWindow;
 import models.Film;
 import tools.Config;
 
@@ -21,6 +21,7 @@ import java.util.ArrayList;
 
 public class ViewList {
     private FlowPane root;
+    private Group grpForPopup;
     private VBox vBoxContainer;// Conteneur qui agence verticalement les element
     private VBox vBoxContainerFilm;// Conteneur qui agence verticalement les films
     private ScrollPane scrollPane; // Conteneur Scrollable
@@ -29,22 +30,25 @@ public class ViewList {
     private HBox hBoxSearchBar = new HBox();
     private ImageView imgSearch = new ImageView(Config.urlIconeSearch);
     private TextField txtFieldSearch = new TextField();
+    private VBox vBoxPopUpMain;
+    private HBox hBoxPopUp;
+    private Label lblPopUp;
+    private Button btnConfPopUp, btnAnnulPopUp;
 
     public ViewList(FlowPane root){
         this.root = root;
-
-        /* Group For Popup */
 
         /* CONSTRUCTION DES CONTENEURS  */
         vBoxContainer = new VBox();
         scrollPane = new ScrollPane();
         vBoxContainerFilm = new VBox();
+        grpForPopup = new Group();
 
         /* EDITION VBOXCONTENEUR */
         vBoxContainer.minWidthProperty().bind(root.widthProperty());
         vBoxContainer.maxWidthProperty().bind(root.widthProperty());
         vBoxContainer.minHeightProperty().bind(root.heightProperty());
-
+        root.getChildren().add(vBoxContainer);
 
         /* EDITION DU CONTENEUR DES FILMS */
         vBoxContainerFilm.setAlignment(Pos.BASELINE_CENTER);
@@ -65,6 +69,23 @@ public class ViewList {
         hBoxSearchBar.setAlignment(Pos.CENTER);
         HBox.setMargin(txtFieldSearch,new Insets(5,0,5,0));
         hBoxSearchBar.getChildren().addAll(imgSearch,txtFieldSearch);
+
+        /* PREPARATION DU POPUP */
+        btnAnnulPopUp = new Button("NON");
+        btnConfPopUp = new Button("OUI");
+        lblPopUp = new Label();
+        hBoxPopUp = new HBox();
+        vBoxPopUpMain = new VBox();
+        vBoxPopUpMain.getStyleClass().add("shadow");
+        vBoxPopUpMain.setPadding(new Insets(10));
+        vBoxPopUpMain.setAlignment(Pos.CENTER);
+        HBox.setMargin(btnConfPopUp, new Insets(5));
+        HBox.setMargin(btnAnnulPopUp, new Insets(5));
+        hBoxPopUp.getChildren().addAll(btnConfPopUp,btnAnnulPopUp);
+        vBoxPopUpMain.setPrefWidth(200);
+        vBoxPopUpMain.layoutXProperty().bind(Bindings.divide(root.widthProperty(),2.5));
+        vBoxPopUpMain.layoutYProperty().bind(Bindings.divide(root.widthProperty(),2.5));
+        vBoxPopUpMain.getChildren().addAll(lblPopUp,hBoxPopUp);
     }
 
     /**
@@ -82,7 +103,8 @@ public class ViewList {
     public void clearAndInitRoot(ViewHeader viewHeader) {
         root.getChildren().clear();
         vBoxContainer.getChildren().addAll(viewHeader.getHeader(),hBoxSearchBar,scrollPane);
-        root.getChildren().add(vBoxContainer);
+        grpForPopup.getChildren().add(vBoxContainer);
+        root.getChildren().add(grpForPopup);
     }
 
     /**
@@ -101,6 +123,7 @@ public class ViewList {
 
             /* IMG */
             ImageView img = new ImageView(Config.urlFilmImg + film.getImg());
+            img.maxWidth(100);
             img.fitWidthProperty().bind(Bindings.divide(root.widthProperty(),5));
             img.setId(film.getId());
             img.setOnMouseClicked(controllerList);
@@ -183,12 +206,21 @@ public class ViewList {
 
             VBox vBoxTile = new VBox();
             vBoxTile.getStyleClass().add("shadow");
-            VBox.setMargin(vBoxTile,new Insets(20,20,0,20));
+            VBox.setMargin(vBoxTile,new Insets(10,20,10,20));
             vBoxTile.setPadding(new Insets(5,10,5,10));
             hBoxBarreDeModif.setAlignment(Pos.CENTER_RIGHT);
             vBoxTile.getChildren().addAll(hBoxBarreDeModif,hBoxTile);
             vBoxContainerFilm.getChildren().add(vBoxTile); // On met la tuile dans le conteneur de films
         }
+    }
+
+    public void displayPopUpMessage(String message){
+        lblPopUp.setText(message);
+        grpForPopup.getChildren().add(vBoxPopUpMain);
+    }
+
+    public void HidePopUpMessage(){
+        grpForPopup.getChildren().remove(vBoxPopUpMain);
     }
 
     public TextField getTxtFieldSearch(){
