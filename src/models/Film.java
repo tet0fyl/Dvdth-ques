@@ -3,7 +3,7 @@ package models;
 import java.util.ArrayList;
 
 public class Film {
-    /* C'ES VARAIBLE STATIC CORESPONDENT AUX NOM DE COLONNE DANS LA BDD */
+    /* C'EST VARAIBLE STATIC CORESPONDENT AUX NOM DE COLONNE DANS LA BDD */
     public static String ID_COLNAME = "Id_Film";
     public static String ID_ASSOC_COLNAME = "Film_id";
     public static String NOM_COLNAME = "Nom_Film";
@@ -41,15 +41,17 @@ public class Film {
 
     public ArrayList<Acteur> setActeursList(String acteurs) {
         ArrayList<Acteur> acteursTmp = new ArrayList<Acteur>();
+
         for (String acteur : acteurs.split(",")) {
             String[] acteurDetails = acteur.split("/");
-                acteursTmp.add(new Acteur(acteurDetails[0],acteurDetails[1],acteurDetails[2]));
+            acteursTmp.add(new Acteur(acteurDetails[0],acteurDetails[1],acteurDetails[2]));
         }
         return acteursTmp;
     }
 
     public ArrayList<Genre> setGenresList(String genres) {
         ArrayList<Genre> genresTmp = new ArrayList<Genre>();
+
         for (String genre : genres.split(",")) {
             String[] genresDetails = genre.split("/");
             genresTmp.add(new Genre(genresDetails[0],genresDetails[1]));

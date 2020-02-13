@@ -6,6 +6,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
 import javafx.stage.*;
+import models.Film;
 import models.managers.RealisateurManager;
 import models.managers.FilmManager;
 import tools.Config;
@@ -102,9 +103,9 @@ public class ViewHandler extends Application {
     /**
      * Idem pour la vue AddFilm : qui contiendra le formulaire
      */
-    public void afficherAddFilm() {
+    public void afficherAddFilm(Film film) {
         viewAddFilm = new ViewAddFilm(root);
-        viewAddFilm.clearAndInitRoot(getViewHeader());
+        viewAddFilm.clearAndInitRoot(getViewHeader(),film);
         controllerAddFilm = new ControllerAddFilm(this);
     }
 

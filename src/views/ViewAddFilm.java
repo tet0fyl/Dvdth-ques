@@ -16,6 +16,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
+import models.Film;
 import tools.Config;
 
 import java.util.ArrayList;
@@ -73,16 +74,18 @@ public class ViewAddFilm {
 
         vBoxContainer.minHeightProperty().bind(root.heightProperty());
 
-        initDuFormulaire();
 
     }
 
-    public void clearAndInitRoot(ViewHeader viewHeader) {
+    public void clearAndInitRoot(ViewHeader viewHeader, Film film) {
         root.getChildren().clear();
         vBoxContainer.getChildren().add(viewHeader.getHeader());
         vBoxContainer.getChildren().addAll(hBoxTitle,scrollPane);
         root.getChildren().add(vBoxContainer);
+        initDuFormulaire(film);
+
     }
+
 
     public void addSuplementaireActorField(){
         HBox newActorFiled = new HBox();
@@ -102,7 +105,8 @@ public class ViewAddFilm {
         vBoxAddGenre.getChildren().add(newGenreField);
     }
 
-    public void initDuFormulaire(){
+
+    public void initDuFormulaire(Film film){
 
         VBox vBoxFormulaire = new VBox();
         vBoxFormulaire.prefWidthProperty().bind(root.widthProperty());
@@ -171,6 +175,7 @@ public class ViewAddFilm {
         vBoxAddActeur.getChildren().add(hBoxFieldActeur);
         hBoxActeur.getChildren().addAll(lblActeur,txtFieldNomActeur,vBoxAddActeur,btnAddActeur);
 
+
         /* CHAMPS GENRES */
         vBoxAddGenre = new VBox();
         HBox hBoxGenre = initHBox();
@@ -185,10 +190,16 @@ public class ViewAddFilm {
         btnUploadFile = new Button("Upload File");
         hBoxImgFilm.getChildren().addAll(lblImgFil,btnUploadFile);
 
+        if (film!=null) {
+            txtFieldNomFilm.setText(film.getNom());
+            txtFieldAnneeFilm.setText(film.getNom());
+            choiceBoxNote.getSelectionModel().select(film.getNom());
+        }
+
         /* BTN SUBMIT */
         btnSubmit = new Button("ENVOYER");
 
-        vBoxFormulaire.getChildren().addAll(hBoxNomFilm,hBoxAnne,hBoxNote,hBoxRealisateur,hBoxActeur,hBoxDescription,hBoxGenre,hBoxImgFilm,btnSubmit);
+        vBoxFormulaire.getChildren().addAll(hBoxNomFilm,hBoxAnne,hBoxNote,hBoxNationalite,hBoxGenre,hBoxRealisateur,hBoxActeur,hBoxDescription,hBoxImgFilm,btnSubmit);
         scrollPane.setContent(vBoxFormulaire);
 
     }
@@ -305,4 +316,6 @@ public class ViewAddFilm {
     public Button getBtnAddActeur() {
         return btnAddActeur;
     }
+
+
 }

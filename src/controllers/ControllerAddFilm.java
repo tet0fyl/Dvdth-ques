@@ -62,6 +62,7 @@ public class ControllerAddFilm implements EventHandler<MouseEvent> {
         if(mouseEvent.getSource().equals(viewHandler.getViewAddFilm().getBtnAddGenre())) {
             viewHandler.getViewAddFilm().addSuplementaireGenreField();
         }
+
         if(mouseEvent.getSource().equals(viewHandler.getViewAddFilm().getBtnAddActeur())) {
             viewHandler.getViewAddFilm().addSuplementaireActorField();
         }
@@ -72,7 +73,7 @@ public class ControllerAddFilm implements EventHandler<MouseEvent> {
             String valuesDescription = (viewHandler.getViewAddFilm().getDescriptionFilm().getText());
             int valuesAnnee = parseInt(viewHandler.getViewAddFilm().getTxtFieldAnneeFilm().getText());
             int valuesNote = viewHandler.getViewAddFilm().getChoiceBoxNote().getSelectionModel().getSelectedIndex();
-            String valuesActeurNom = (viewHandler.getViewAddFilm().getTxtFieldPrenomActeur().getText());
+            String valuesActeurNom = (viewHandler.getViewAddFilm().getTxtFieldNomActeur().getText());
             String valuesActeurPrenom = (viewHandler.getViewAddFilm().getTxtFieldPrenomActeur().getText());
             String valuesRealisateurNom = (viewHandler.getViewAddFilm().getTxtFieldNomRealisateur().getText());
             String valuesRealisateurPrenom = (viewHandler.getViewAddFilm().getTxtFieldPrenomRealisateur().getText());
@@ -91,11 +92,12 @@ public class ControllerAddFilm implements EventHandler<MouseEvent> {
                  int film_id = filmManager.insert(valuesNomFilm, valuesAnnee, valuesNote , valuesDescription,selectedFile.getName(), real_id, nationalite_id);
                  filmManager.insertFilmActeur(film_id, acteur_id);
                  filmManager.insertFilmGenre(film_id, genre_id);
-
+                viewHandler.afficherHome();
 
             } catch (SQLException e) {
                 e.printStackTrace();
             }
+
 
         }
 
@@ -118,11 +120,5 @@ public class ControllerAddFilm implements EventHandler<MouseEvent> {
                 }
             }
         }
-
-
-
-
-
-
-        }
+    }
 }

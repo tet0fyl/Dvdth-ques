@@ -27,7 +27,7 @@ public class ControllerHeader implements EventHandler<MouseEvent> {
         }
 
         if(mouseEvent.getSource().equals(viewHandler.getViewHeader().getBtnAddFilm())){
-            viewHandler.afficherAddFilm();
+            viewHandler.afficherAddFilm(null);
         }
 
         if(mouseEvent.getSource().equals(viewHandler.getViewHeader().getBtnHome())){
