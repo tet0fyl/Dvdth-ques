@@ -34,7 +34,7 @@ public class ViewAddFilm {
     private ChoiceBox choiceBoxNote;
     private TextArea descriptionFilm;
     private TextField txtFieldAnneeFilm, txtFieldNomFilm,txtFieldNationalite, txtFieldNomRealisateur,txtFieldPrenomRealisateur, txtFieldNomActeur, txtFieldPrenomActeur, txtFieldGenre;
-    private VBox vBoxAddActeur, vBoxAddGenre;
+    private VBox vBoxAddActeur, vBoxAddGenre,vBoxRenduImage;
     private Button btnUploadFile, btnAddGenre, btnAddActeur;
 
 
@@ -188,12 +188,17 @@ public class ViewAddFilm {
         HBox hBoxImgFilm = initHBox();
         Label lblImgFil = initLabel("ImageFilm");
         btnUploadFile = new Button("Upload File");
-        hBoxImgFilm.getChildren().addAll(lblImgFil,btnUploadFile);
+        vBoxRenduImage=new VBox();
+        hBoxImgFilm.getChildren().addAll(lblImgFil,btnUploadFile,vBoxRenduImage);
 
         if (film!=null) {
             txtFieldNomFilm.setText(film.getNom());
-            txtFieldAnneeFilm.setText(film.getNom());
-            choiceBoxNote.getSelectionModel().select(film.getNom());
+            txtFieldAnneeFilm.setText(film.getAnnee());
+            choiceBoxNote.getSelectionModel().select(film.getNote());
+            descriptionFilm.setText(film.getContent());
+            txtFieldNationalite.setText(film.getNationalite().getLibelle());
+
+
         }
 
         /* BTN SUBMIT */
@@ -317,5 +322,7 @@ public class ViewAddFilm {
         return btnAddActeur;
     }
 
-
+    public VBox getvBoxRenduImage() {
+        return vBoxRenduImage;
+    }
 }
