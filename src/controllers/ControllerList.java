@@ -41,7 +41,6 @@ public class ControllerList implements EventHandler<InputEvent> {
                         viewHandler.afficherSingleFilm(Integer.valueOf(((MouseEvent)inputEvent).getPickResult().getIntersectedNode().getId()));
                     } catch (NumberFormatException e){
                         if(((MouseEvent)inputEvent).getPickResult().getIntersectedNode().getId().contains("del")){
-                            System.out.println("cross click");
                             try {
                                 filmManager.deleteFilm(Integer.valueOf(((MouseEvent)inputEvent).getPickResult().getIntersectedNode().getId().split("-")[1]));
                                 viewHandler.getViewList().updateAFilmTile(filmManager.getAll(), this);
@@ -49,9 +48,12 @@ public class ControllerList implements EventHandler<InputEvent> {
                                 ex.printStackTrace();
                             }
                         } else {
-                            System.out.println("pen click");
-                            //TODO: envoyer le film vers le formulaire de modification
-
+                            try {
+                                ArrayList<Film> film = filmManager.getOneFilm(Integer.valueOf(((MouseEvent)inputEvent).getPickResult().getIntersectedNode().getId().split("-")[1]));
+                                viewHandler.afficherAddFilm(film.get(0));
+                            } catch (SQLException ex) {
+                                ex.printStackTrace();
+                            }
                         }
                     }
                 }
