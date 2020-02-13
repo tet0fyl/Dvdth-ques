@@ -3,7 +3,6 @@ package views;
 import controllers.*;
 import javafx.application.Application;
 import javafx.scene.Scene;
-import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
 import javafx.stage.*;
 import models.Film;

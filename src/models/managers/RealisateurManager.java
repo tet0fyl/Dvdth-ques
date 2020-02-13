@@ -6,7 +6,6 @@ import java.util.ArrayList;
 
 public class RealisateurManager extends BDDManager {
 
-
     public ArrayList<Realisateur> getAll () throws SQLException {
         ArrayList listOfRealisateur = new ArrayList();
         String query = "SELECT  * FROM realisateur ";
@@ -23,7 +22,7 @@ public class RealisateurManager extends BDDManager {
         return listOfRealisateur;
     }
 
-public int insert(String valuesRealisateurNom, String valuesRealisateurPrenom) throws SQLException {
+    public int insert(String valuesRealisateurNom, String valuesRealisateurPrenom) throws SQLException {
 
         String query = "INSERT INTO realisateur (`Id_Realisateur`, `Nom_Realisateur`, `Prenom_Realisateur`) VALUES (null , '"+valuesRealisateurNom+ "' , '"+valuesRealisateurPrenom+ "')";
         this.start();
@@ -35,7 +34,6 @@ public int insert(String valuesRealisateurNom, String valuesRealisateurPrenom) t
         this.stop();
     return result;
     }
-
 
 }
 

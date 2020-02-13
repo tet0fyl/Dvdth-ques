@@ -86,7 +86,7 @@ public class ViewAddFilm {
 
     }
 
-
+    /*
     public void addSuplementaireActorField(){
         HBox newActorFiled = new HBox();
         TextField txtFieldNewNomActeur = new TextField();
@@ -103,7 +103,7 @@ public class ViewAddFilm {
         txtFieldNewGenre.setPromptText("Libelle");
         newGenreField.getChildren().add(txtFieldNewGenre);
         vBoxAddGenre.getChildren().add(newGenreField);
-    }
+    }*/
 
 
     public void initDuFormulaire(Film film){
@@ -173,7 +173,7 @@ public class ViewAddFilm {
         txtFieldPrenomActeur.setPromptText("Prenom");
         hBoxFieldActeur.getChildren().addAll(txtFieldNomActeur,txtFieldPrenomActeur);
         vBoxAddActeur.getChildren().add(hBoxFieldActeur);
-        hBoxActeur.getChildren().addAll(lblActeur,txtFieldNomActeur,vBoxAddActeur,btnAddActeur);
+        hBoxActeur.getChildren().addAll(lblActeur,txtFieldNomActeur,vBoxAddActeur);
 
 
         /* CHAMPS GENRES */
@@ -182,7 +182,7 @@ public class ViewAddFilm {
         Label lblGenre = initLabel(" GENRE:");
         txtFieldGenre = new TextField();
         vBoxAddGenre.getChildren().add(txtFieldGenre);
-        hBoxGenre.getChildren().addAll(lblGenre,vBoxAddGenre,btnAddGenre);
+        hBoxGenre.getChildren().addAll(lblGenre,vBoxAddGenre);
 
         /* IMAGE AFFICHE */
         HBox hBoxImgFilm = initHBox();

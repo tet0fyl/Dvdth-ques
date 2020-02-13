@@ -14,7 +14,6 @@ public class Film {
     public static String ACTEURS_COLNAME = "acteurs";
     public static String GENRES_COLNAME = "genres";
 
-
     private String id;
     private String nom;
     private String annee;

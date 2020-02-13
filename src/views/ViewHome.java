@@ -24,7 +24,6 @@ public class ViewHome {
     private HBox hBoxTitle; // Conteneur du Titre
     private Text titleNouveaute;
 
-
     public ViewHome(FlowPane root){
         this.root = root;
 
@@ -51,7 +50,6 @@ public class ViewHome {
         flowPaneCotainerFilms.minWidthProperty().bind(vBoxContainer.widthProperty());
         flowPaneCotainerFilms.maxWidthProperty().bind(vBoxContainer.widthProperty());
         vBoxContainer.minHeightProperty().bind(root.heightProperty());
-
 
         /* EDITION DU CONTENEUR SCROLLABLE */
         scrollPane.prefHeightProperty().bind(Bindings.divide(root.heightProperty(),1.5));
@@ -96,7 +94,6 @@ public class ViewHome {
             img.setPreserveRatio(true);
             img.setId(film.getId());
             img.setOnMouseClicked(controllerHome);
-
 
             vBoxTile.getChildren().add(img);
             flowPaneCotainerFilms.getChildren().add(vBoxTile); // Ajout de la tuile dans le conteneur Films

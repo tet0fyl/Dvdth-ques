@@ -10,7 +10,6 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import tools.Config;
 
-
 public class ViewLoadScreen {
     private FlowPane root;
     private VBox vBoxContainer;
@@ -21,7 +20,6 @@ public class ViewLoadScreen {
     private Button btnExit;
 
     private ImageView imgNameLogo = new ImageView(Config.urlImgFullLogo);
-
 
     public ViewLoadScreen(FlowPane root){
         this.root = root;

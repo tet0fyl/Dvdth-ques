@@ -7,8 +7,6 @@ import java.util.ArrayList;
 
 public class GenreManager extends BDDManager{
 
-
-
         public ArrayList<Genre> getAll () throws SQLException {
             ArrayList listOfGenre = new ArrayList();
             String query = "SELECT  * FROM Genre ";
@@ -26,7 +24,6 @@ public class GenreManager extends BDDManager{
         }
 
         public int insert(String valuesGenre) throws SQLException {
-
             String query = "INSERT INTO `genre`(`Id_Genre`, `Libelle_Genre`) VALUES (null , '"+valuesGenre+ "')";
             this.start();
             st = db.createStatement();
@@ -37,8 +34,6 @@ public class GenreManager extends BDDManager{
             this.stop();
             return result;
         }
-
-
     }
 
 

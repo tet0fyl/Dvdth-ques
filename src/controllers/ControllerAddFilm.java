@@ -1,6 +1,7 @@
 package controllers;
 
 import javafx.event.EventHandler;
+import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.FileChooser;
 import models.Acteur;
@@ -62,11 +63,11 @@ public class ControllerAddFilm implements EventHandler<MouseEvent> {
     @Override
     public void handle(MouseEvent mouseEvent) {
         if(mouseEvent.getSource().equals(viewHandler.getViewAddFilm().getBtnAddGenre())) {
-            viewHandler.getViewAddFilm().addSuplementaireGenreField();
+            //viewHandler.getViewAddFilm().addSuplementaireGenreField();
         }
 
         if(mouseEvent.getSource().equals(viewHandler.getViewAddFilm().getBtnAddActeur())) {
-            viewHandler.getViewAddFilm().addSuplementaireActorField();
+            //viewHandler.getViewAddFilm().addSuplementaireActorField();
         }
         if(mouseEvent.getSource().equals(viewHandler.getViewAddFilm().getBtnSubmit())) {
             //TODO: Choper tout les textes field
@@ -120,10 +121,11 @@ public class ControllerAddFilm implements EventHandler<MouseEvent> {
                             (Paths.get(Paths.get("").toAbsolutePath().toString() + "/src/" + Config.urlFilmImg + "/" + selectedFile.getName())),
                             StandardCopyOption.REPLACE_EXISTING);
 
+                    /* TENTATIVE D'AFFICHAGE ASYNCHRONE */
                     boolean copyIsFinished = false;
                     while (!copyIsFinished){
                         try{
-                            Paths.get(Config.urlFilmImg + "/" + selectedFile.getName());
+                            new Image(Config.urlFilmImg + "/" + selectedFile.getName());
                             viewHandler.getViewAddFilm().insertRenduImage(Config.urlFilmImg + "/" + selectedFile.getName());
                             copyIsFinished= true;
                         } catch (IllegalArgumentException e){
