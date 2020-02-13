@@ -50,7 +50,7 @@ public class ControllerList implements EventHandler<InputEvent> {
                         } else {
                             try {
                                 ArrayList<Film> film = filmManager.getOneFilm(Integer.valueOf(((MouseEvent)inputEvent).getPickResult().getIntersectedNode().getId().split("-")[1]));
-                                viewHandler.afficherAddFilm(film.get(0));
+                                viewHandler.afficherAddFilm(film.get(0), true);
                             } catch (SQLException ex) {
                                 ex.printStackTrace();
                             }

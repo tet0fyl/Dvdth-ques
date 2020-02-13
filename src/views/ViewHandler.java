@@ -103,10 +103,10 @@ public class ViewHandler extends Application {
     /**
      * Idem pour la vue AddFilm : qui contiendra le formulaire
      */
-    public void afficherAddFilm(Film film) {
+    public void afficherAddFilm(Film film, boolean update) {
         viewAddFilm = new ViewAddFilm(root);
         viewAddFilm.clearAndInitRoot(getViewHeader(),film);
-        controllerAddFilm = new ControllerAddFilm(this);
+        controllerAddFilm = new ControllerAddFilm(this, update);
     }
 
     public void afficherSingleFilm(int idFilm){

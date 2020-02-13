@@ -1,7 +1,6 @@
 package controllers;
 
 import javafx.event.EventHandler;
-import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.FileChooser;
 import models.Acteur;
@@ -35,10 +34,12 @@ public class ControllerAddFilm implements EventHandler<MouseEvent> {
     private ArrayList<Acteur> dataActeurs;
     private ArrayList<Genre> dataGenres;
     private ArrayList<Nationalite> dataNationalite;
+    private boolean update;
 
 
-    public ControllerAddFilm(ViewHandler viewHandler) {
+    public ControllerAddFilm(ViewHandler viewHandler, boolean update) {
         this.viewHandler = viewHandler;
+        this.update = update;
         this.realisateurManager= new RealisateurManager();
         this.genreManager= new GenreManager();
         this.acteurManager= new ActeurManager();
@@ -82,23 +83,25 @@ public class ControllerAddFilm implements EventHandler<MouseEvent> {
             String valuesNationalite = (viewHandler.getViewAddFilm().getTxtFieldNationalite().getText());
 
             //TODO: Faire requete
-           // System.out.println(valuesNomFilm + " " + valuesRealisateurNom  + " " + valuesActeurPrenom + "" +
-                 //   " " + valuesActeurNom + " " + valuesRealisateurPrenom + " " + valuesDescription + " " + valuesGenre + " " + valuesNote+ " " + valuesAnnee );
-            try {
 
-                 int acteur_id = acteurManager.insert(valuesActeurNom,valuesActeurPrenom);
-                 int genre_id = genreManager.insert(valuesGenre);
-                 int nationalite_id = nationaliteManager.insert(valuesNationalite);
-                 int real_id = realisateurManager.insert(valuesRealisateurNom,valuesRealisateurPrenom);
-                 int film_id = filmManager.insert(valuesNomFilm, valuesAnnee, valuesNote , valuesDescription,selectedFile.getName(), real_id, nationalite_id);
-                 filmManager.insertFilmActeur(film_id, acteur_id);
-                 filmManager.insertFilmGenre(film_id, genre_id);
-                 viewHandler.afficherHome();
+            if(update){ // Si on update
 
-            } catch (SQLException e) {
-                e.printStackTrace();
+
+
+            }else { // Si on Insert
+                try {
+                    int acteur_id = acteurManager.insert(valuesActeurNom,valuesActeurPrenom);
+                    int genre_id = genreManager.insert(valuesGenre);
+                    int nationalite_id = nationaliteManager.insert(valuesNationalite);
+                    int real_id = realisateurManager.insert(valuesRealisateurNom,valuesRealisateurPrenom);
+                    int film_id = filmManager.insert(valuesNomFilm, valuesAnnee, valuesNote , valuesDescription,selectedFile.getName(), real_id, nationalite_id);
+                    filmManager.insertFilmActeur(film_id, acteur_id);
+                    filmManager.insertFilmGenre(film_id, genre_id);
+                    viewHandler.afficherHome();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
             }
-
 
         }
 
@@ -116,6 +119,7 @@ public class ControllerAddFilm implements EventHandler<MouseEvent> {
                     Files.copy(FileSystems.getDefault().getPath(selectedFile.getPath()),
                             (Paths.get(Paths.get("").toAbsolutePath().toString() + "/src/" + Config.urlFilmImg + "/" + selectedFile.getName())),
                             StandardCopyOption.REPLACE_EXISTING);
+
                     viewHandler.getViewAddFilm().insertRenduImage(Config.urlFilmImg + "/" + selectedFile.getName());
 
                 } catch (IOException e) {
