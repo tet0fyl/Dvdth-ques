@@ -116,10 +116,8 @@ public class ControllerAddFilm implements EventHandler<MouseEvent> {
                     Files.copy(FileSystems.getDefault().getPath(selectedFile.getPath()),
                             (Paths.get(Paths.get("").toAbsolutePath().toString() + "/src/" + Config.urlFilmImg + "/" + selectedFile.getName())),
                             StandardCopyOption.REPLACE_EXISTING);
-                    ImageView imgRendu = new ImageView(Config.urlFilmImg + "/" + selectedFile.getName());
-                    imgRendu.setPreserveRatio(true);
-                    imgRendu.setFitWidth(100);
-                    viewHandler.getViewAddFilm().getvBoxRenduImage().getChildren().add(imgRendu);
+                    viewHandler.getViewAddFilm().insertRenduImage(Config.urlFilmImg + "/" + selectedFile.getName());
+
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
