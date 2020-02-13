@@ -13,9 +13,8 @@ public class Config {
     public static String urlIconePlus = "ressources/icone/plus.png";
     public static String urlIconeMinus = "ressources/icone/minus.png";
 
-
     public static String urlStyleSheet = "ressources/css/styles.css";
 
-    public static boolean skipIntro = true;
+    public static boolean skipIntro = false;
 
 }

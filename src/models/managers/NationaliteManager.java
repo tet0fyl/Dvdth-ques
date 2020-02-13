@@ -22,6 +22,7 @@ public class NationaliteManager  extends BDDManager {
         this.stop();
         return listOfNationalite;
     }
+
     public int insert(String valuesNationalite) throws SQLException {
 
         String query = "INSERT INTO `nationalite`(`Id_Nationalite`, `Libelle_Nationalite`) VALUES (null , '"+valuesNationalite+ "')";
@@ -34,9 +35,6 @@ public class NationaliteManager  extends BDDManager {
         this.stop();
         return result;
     }
-
-
-
 }
 
 

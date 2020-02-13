@@ -19,7 +19,6 @@ public class ViewHeader {
         private FlowPane flowPaneNavBar; // Conteneur de la Nav Bar
         private Button btnHome, btnListFilm, btnAddFilm,btnExit; // Btn de la Nav Bar
 
-
         public ViewHeader(FlowPane root){
             this.root = root;
             imgNameLogo = new ImageView(Config.urlImgFullLogo);
