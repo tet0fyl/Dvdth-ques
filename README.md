@@ -26,10 +26,10 @@ Objet
 | getNote():String |  la note du film sur 5 |
 | getContent():String | description du film|     
 | getContent(byte limit):String | description du film limitée |
-| getImg():String |  l'urlImg|     
+| getImg():String |  l'url Img|     
 | getActeurs():ArrayList<Acteur> | liste d'objet Acteur |     
-| getActeursToString():String |  liste d'acteurs concatener ave une virgule|     
-| getGenres()ArrayList<Genre> | liste d'objet Genre |     
+| getActeursToString():String |  liste d'acteurs concatener avec une virgule|     
+| getGenres():ArrayList<Genre> | liste d'objet Genre |     
 | getGenresToString():String | liste genre concatener avec une virgule|     
 | getRealisateur():Realisateur | objet Realisateur|     
 | getNationalite():Nationalite | obj Nationalite|
