@@ -121,7 +121,7 @@ public class ControllerAddFilm implements EventHandler<MouseEvent> {
                             (Paths.get(Paths.get("").toAbsolutePath().toString() + "/src/" + Config.urlFilmImg + "/" + selectedFile.getName())),
                             StandardCopyOption.REPLACE_EXISTING);
 
-                    /* TENTATIVE D'AFFICHAGE ASYNCHRONE */
+                    /* TENTATIVE D'AFFICHAGE ASYNCHRONE (NE FONCTIONNE PAS)*/
                     boolean copyIsFinished = false;
                     while (!copyIsFinished){
                         try{
@@ -132,6 +132,7 @@ public class ControllerAddFilm implements EventHandler<MouseEvent> {
                             e.printStackTrace();
                         }
                     }
+                    /* */
 
                 } catch (IOException e) {
                     e.printStackTrace();
