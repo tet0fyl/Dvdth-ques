@@ -1,6 +1,7 @@
 package controllers;
 
 import javafx.event.EventHandler;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.FileChooser;
 import models.Acteur;
@@ -92,7 +93,7 @@ public class ControllerAddFilm implements EventHandler<MouseEvent> {
                  int film_id = filmManager.insert(valuesNomFilm, valuesAnnee, valuesNote , valuesDescription,selectedFile.getName(), real_id, nationalite_id);
                  filmManager.insertFilmActeur(film_id, acteur_id);
                  filmManager.insertFilmGenre(film_id, genre_id);
-                viewHandler.afficherHome();
+                 viewHandler.afficherHome();
 
             } catch (SQLException e) {
                 e.printStackTrace();
@@ -115,6 +116,10 @@ public class ControllerAddFilm implements EventHandler<MouseEvent> {
                     Files.copy(FileSystems.getDefault().getPath(selectedFile.getPath()),
                             (Paths.get(Paths.get("").toAbsolutePath().toString() + "/src/" + Config.urlFilmImg + "/" + selectedFile.getName())),
                             StandardCopyOption.REPLACE_EXISTING);
+                    ImageView imgRendu = new ImageView(Config.urlFilmImg + "/" + selectedFile.getName());
+                    imgRendu.setPreserveRatio(true);
+                    imgRendu.setFitWidth(100);
+                    viewHandler.getViewAddFilm().getvBoxRenduImage().getChildren().add(imgRendu);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
