@@ -242,7 +242,7 @@ public class ViewAddFilm {
         return hBox;
     }
 
-    public void insertRenduImage(String url){
+    public void insertRenduImage(String url) {
         ImageView image = new ImageView(url);
         image.setPreserveRatio(true);
         image.setFitWidth(150);

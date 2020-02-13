@@ -120,7 +120,16 @@ public class ControllerAddFilm implements EventHandler<MouseEvent> {
                             (Paths.get(Paths.get("").toAbsolutePath().toString() + "/src/" + Config.urlFilmImg + "/" + selectedFile.getName())),
                             StandardCopyOption.REPLACE_EXISTING);
 
-                    viewHandler.getViewAddFilm().insertRenduImage(Config.urlFilmImg + "/" + selectedFile.getName());
+                    boolean copyIsFinished = false;
+                    while (!copyIsFinished){
+                        try{
+                            Paths.get(Config.urlFilmImg + "/" + selectedFile.getName());
+                            viewHandler.getViewAddFilm().insertRenduImage(Config.urlFilmImg + "/" + selectedFile.getName());
+                            copyIsFinished= true;
+                        } catch (IllegalArgumentException e){
+                            e.printStackTrace();
+                        }
+                    }
 
                 } catch (IOException e) {
                     e.printStackTrace();
