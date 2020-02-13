@@ -1,7 +1,5 @@
 package models.managers;
-
 import com.mysql.cj.jdbc.exceptions.CommunicationsException;
-
 import java.sql.*;
 
 public abstract class BDDManager {

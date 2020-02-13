@@ -4,9 +4,11 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
+
+/**
+ * nous permet de resortir les element de la bdd
+ */
 public class ActeurManager  extends BDDManager {
-
-
         public ArrayList<Acteur> getAll () throws SQLException {
             ArrayList listOfActeur = new ArrayList();
             String query = "SELECT  * FROM Acteur ";
@@ -23,16 +25,13 @@ public class ActeurManager  extends BDDManager {
             return listOfActeur;
         }
 
-
-
-          //  String query = "SELECT * FROM acteur WHERE Prenom_Acteur like '"+valuesActeurPrenom+"'  LIMIT 1";// REQUETE SELECT POUR SAVOIR SI L'ACTEUR EXISTE
-
-          // rs = st.executeQuery(query);
-
-          //            while (rs.next()){
-          //                 return Integer.parseInt(rs.getString(Acteur.ID_COLNAME));
-          //            }
-
+    /**
+     * insert un acteur dans la bdd
+     * @param valuesActeurNom nom acteur
+     * @param valuesActeurPrenom prenom acteur
+     * @return  ça retourne la clefs qui a était generer par la bdd
+     * @throws SQLException
+     */
     public int insert(String valuesActeurNom, String valuesActeurPrenom) throws SQLException {
 
         String query = "INSERT INTO `acteur`(`Id_Acteur`, `Nom_Acteur`, `Prenom_Acteur`) VALUES (null , '"+valuesActeurNom+ "' , '"+valuesActeurPrenom+ "')";
